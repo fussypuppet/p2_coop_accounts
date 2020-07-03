@@ -6,6 +6,7 @@ router.get('/new', (req,res) => {
     res.render('./partials/newDues');
 })
 
+//REFACTOR LATER TO IMPLEMENT BEST PRACTICE IN PARSING STRINGS TO DATES
 router.post('/', (req,res) => {
     //first, must add ending dates to the monthly dues amounts these new ones are replacing, i.e. the dues amounts that are missing endDates in the database
     //in future, might want to refactor by removing endDate as an attribute entirely, and just infer the existence of an ending date by the presence of a dues entry with a more recent start date

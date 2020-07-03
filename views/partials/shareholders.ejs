@@ -23,6 +23,11 @@
                 <td>
                     <p><%= shareholder.unit.number %></p>
                 </td>
+                <td>
+                    <% shareholder.dues.forEach(duesAmount => { %>
+                        <p>Amount: <%= duesAmount.amount %>, start date: <%= duesAmount.startDate %>, end date: <%= duesAmount.endDate %></p>
+                    <% }) %>
+                </td>
             </tr>
         <% }) %>
     </table>
