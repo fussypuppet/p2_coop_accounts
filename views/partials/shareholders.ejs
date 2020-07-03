@@ -1,9 +1,9 @@
-<h1>Shareholder Index</h1>
+<h2>Shareholder Index</h2>
 <% if (error) { %>
     <h2>Error: <%= JSON.stringify(error) %></h2>}
 <% } %>
 <% if (shareholdersList) { %>
-    <table class="table">
+    <table class="table sidebar">
         <tr>
             <th>
                 Name
@@ -29,6 +29,7 @@
                 <td>
                     <%= shareholder.totalDuesCharged %>
                 </td>
+                <% /* %>
                 <td>
                     <% shareholder.dues.forEach(duesAmount => { %>
                         <p>$<%= duesAmount.amount %>, from <%= duesAmount.startMonth %>/<%= duesAmount.startYear %> to 
@@ -40,6 +41,7 @@
                         </p>
                     <% }) %>
                 </td>
+                <% */ %>
             </tr>
         <% }) %>
     </table>
