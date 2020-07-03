@@ -12,4 +12,4 @@ module.exports = (sequelize, DataTypes) => {
     models.transaction.belongsTo(models.shareholder)
   };
   return transaction;
-};
+}

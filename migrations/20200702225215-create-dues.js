@@ -9,12 +9,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       amount: {
+        allowNull: false,
         type: Sequelize.DECIMAL
       },
       size: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       startDate: {
+        allowNull: false,
         type: Sequelize.DATE
       },
       endDate: {

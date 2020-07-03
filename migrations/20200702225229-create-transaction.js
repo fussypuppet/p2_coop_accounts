@@ -9,9 +9,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       amount: {
+        allowNull: false,
         type: Sequelize.DECIMAL
       },
       date: {
+        allowNull: false,
         type: Sequelize.DATE
       },
       category: {
@@ -21,6 +23,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       shareholderId: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       createdAt: {

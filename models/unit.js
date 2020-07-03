@@ -10,4 +10,4 @@ module.exports = (sequelize, DataTypes) => {
     models.unit.hasOne(models.shareholder)
   };
   return unit;
-};
+}

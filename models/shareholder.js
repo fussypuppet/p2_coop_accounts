@@ -15,4 +15,4 @@ module.exports = (sequelize, DataTypes) => {
     models.shareholder.hasMany(models.transaction)
   };
   return shareholder;
-};
+}
