@@ -2,6 +2,21 @@ const express = require('express');
 const db = require('../models');
 const router = express.Router();
 
+router.get('/:id', (req,res) => {
+    //console.log("in shareholders show route, looking for id " + req.params.id);
+    db.shareholder.findOne({
+        where: {id: req.params.id},
+        include: [db.unit]
+    })
+    .then(shareholder => {
+        res.render('./partials/showShareholder', {shareholder});
+    })
+    .catch(error => {
+        console.log(`🧲🧲🧲 Error retrieving shareholder: ${JSON.stringify(error)}`);
+    })
+});
+
+
 router.get('/', (req, res) => {
     //end goal:  render a chart of shareholder names, their units, and their current balance
     //first, retrieve all shareholders and their unit numbers
@@ -30,7 +45,6 @@ router.get('/', (req, res) => {
                             startYear: thisDuesAmount.startDate.getFullYear()
                         }                       
                         if (thisDuesAmount.endDate){
-                            console.log("sample ending date should be 4/1/xxxx" + JSON.stringify(thisDuesAmount.endDate));
                             duesSubObject.endMonth = thisDuesAmount.endDate.getMonth() + 1,
                             duesSubObject.endYear = thisDuesAmount.endDate.getFullYear()
                         } else {
