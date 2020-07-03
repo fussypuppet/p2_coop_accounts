@@ -27,10 +27,13 @@
                     <p><%= shareholder.unit.number %></p>
                 </td>
                 <td>
+                    <%= shareholder.totalDuesCharged %>
+                </td>
+                <td>
                     <% shareholder.dues.forEach(duesAmount => { %>
                         <p>$<%= duesAmount.amount %>, from <%= duesAmount.startMonth %>/<%= duesAmount.startYear %> to 
                             <% if (duesAmount.endMonth) { %>
-                                <%= duesAmount.endMonth %>/<%= duesAmount.endYear %>
+                                <%= duesAmount.endMonth - 1 %>/<%= duesAmount.endYear %>
                             <% } else { %>
                                 present
                             <% } %>

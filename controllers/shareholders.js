@@ -15,6 +15,10 @@ router.get('/', (req, res) => {
             order: [['startDate', 'ASC']]
         })
         .then(duesList => {
+            //attach dues amounts to correct shareholders according by unit size, JOIN style
+            let today = new Date();
+            let todayMonth = today.getMonth() + 1;
+            let todayYear = today.getFullYear();
             shareholdersList.forEach(thisShareholder => {
                 thisShareholder.dues = [];
                 duesList.forEach(thisDuesAmount => {
@@ -22,15 +26,33 @@ router.get('/', (req, res) => {
                         let duesSubObject = {
                             amount: thisDuesAmount.amount,
                             // parse start & end dates into months & years, since that's all that matters for counting the amount charged
-                            startMonth: thisDuesAmount.startDate.getMonth() + 1, //getMonth returns a month from 0-11, but want to be able to print this directly into ejs file, so +1
+                            startMonth: thisDuesAmount.startDate.getMonth() + 1, //getMonth returns a month from 0-11, but I want it to be 1-12
                             startYear: thisDuesAmount.startDate.getFullYear()
                         }                       
                         if (thisDuesAmount.endDate){
                             console.log("sample ending date should be 4/1/xxxx" + JSON.stringify(thisDuesAmount.endDate));
                             duesSubObject.endMonth = thisDuesAmount.endDate.getMonth() + 1,
                             duesSubObject.endYear = thisDuesAmount.endDate.getFullYear()
+                        } else {
+                            duesSubObject.endMonth = todayMonth +1; // yes, we added a month a few lines ago to make todayMonth be from 1-12, but ending months are EXCLUSIVE, and we want to charge for the current month later on
+                            duesSubObject.endYear = todayYear;
                         }
                         thisShareholder.dues.push(duesSubObject);
+                    }
+                })
+            })
+            //now compute sum of all dues charges levied against each shareholder
+            //this second shareholdersList.foreach loop looks redundant, but will make for easier refactoring later by keeping functions separate
+            shareholdersList.forEach(thisShareholder => {
+                thisShareholder.totalDuesCharged = 0;
+                //iterate through every dues amount charged through the shareholder, adding theim to the total dues charged counter
+                thisShareholder.dues.forEach(thisDuesObject => { // thisDuesObject = {amount: XX, startDate: XX, and possibly an endDate: XX}
+                    if (thisDuesObject.endYear === thisDuesObject.startYear) { // if it started & ended the same year, we just subtract months
+                        thisShareholder.totalDuesCharged += thisDuesObject.amount * (thisDuesObject.endMonth - thisDuesObject.startMonth); //end months are exclusive
+                    } else { // if dues started & ended in different years, we need to tally months in the first & last years, and add for full years for the years in between
+                        thisShareholder.totalDuesCharged += thisDuesObject.amount * (13 - thisDuesObject.startMonth); //start months are inclusive
+                        thisShareholder.totalDuesCharged += thisDuesObject.amount * (thisDuesObject.endMonth - 1); //end months are exclusive
+                        thisShareholder.totalDuesCharged += thisDuesObject.amount * (thisDuesObject.endYear - thisDuesObject.startYear - 1);
                     }
                 })
             })
