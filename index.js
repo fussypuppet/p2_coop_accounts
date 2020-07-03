@@ -64,6 +64,7 @@ app.get('/profile', function(req,res){  //2nd argument isLoggedIn?********
 //include auth controller
 app.use('/auth', require('./controllers/auth')); // use the auth.js file in the auth folder when dealing with auth routes)
 app.use('/shareholders', require('./controllers/shareholders'));
+app.use('/dues', require('./controllers/dues'));
 
 app.listen(process.env.PORT || 3000, function() {
     console.log(`Listening to port ${process.env.PORT}`);
