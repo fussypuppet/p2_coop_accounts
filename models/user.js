@@ -35,6 +35,9 @@ module.exports = function(sequelize, DataTypes) {
                     msg: "Password must be between 8 and 99 characters"  // can also use hooks below or html form to validation
                 }
             }
+        },
+        shareholderId: {
+            type: DataTypes.INTEGER
         }
 
     }, {
@@ -53,6 +56,7 @@ module.exports = function(sequelize, DataTypes) {
     // user associations
     user.associate = function(models){
         //TO DO: any user associations you want
+        models.user.hasOne(models.shareholder)
     }
     user.prototype.validPassword = function(passwordTyped) {
         return bcrypt.compareSync(passwordTyped, this.password);

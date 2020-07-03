@@ -1,0 +1,29 @@
+<h1>Shareholder Index</h1>
+<% if (error) { %>
+    <h2>Error: <%= JSON.stringify(error) %></h2>}
+<% } %>
+<% if (shareholdersList) { %>
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Unit
+            </th>
+        </tr>
+        <% shareholdersList.forEach(shareholder => { %>
+            <tr>
+                <td>
+                    <p><%= shareholder.name %></p>
+                    <% if (shareholder.name2){ %>
+                        <p>& <%= shareholder.name2 %></p>
+                    <% } %>
+                </td>
+                <td>
+                    <p><%= shareholder.unit.number %></p>
+                </td>
+            </tr>
+        <% }) %>
+    </table>
+<% } %>

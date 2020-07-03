@@ -22,7 +22,7 @@ router.post('/register', function(req,res){
         if (created){
             console.log("user created!");
             passport.authenticate('local', {
-                successRedirect: '/profile',
+                successRedirect: '/shareholders',
                 successFlash: 'Thanks for signing up!'
             })(req,res);
         } else {
@@ -63,7 +63,7 @@ router.post('/login', function(req,res,next){           // our first use of keyw
             if (error) next(error);  // ooh fancy single-line if statement!
             req.flash('success!', 'You are validated and logged in');
             req.session.save(function(){
-                return res.redirect('/');
+                return res.redirect('/shareholders');
             })
         })
     })(req, res, next);

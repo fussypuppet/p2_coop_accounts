@@ -1,6 +1,6 @@
 {
   "development": {
-    "database": "userAuth_sample",
+    "database": "coop_accounts",
     "host": "127.0.0.1",
     "dialect": "postgres"
   }
