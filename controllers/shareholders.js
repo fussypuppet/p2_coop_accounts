@@ -19,11 +19,22 @@ router.get('/', (req, res) => {
                 thisShareholder.dues = [];
                 duesList.forEach(thisDuesAmount => {
                     if (thisShareholder.unit.size === thisDuesAmount.size){
-                        thisShareholder.dues.push(thisDuesAmount);
+                        let duesSubObject = {
+                            amount: thisDuesAmount.amount,
+                            // parse start & end dates into months & years, since that's all that matters for counting the amount charged
+                            startMonth: thisDuesAmount.startDate.getMonth() + 1, //getMonth returns a month from 0-11, but want to be able to print this directly into ejs file, so +1
+                            startYear: thisDuesAmount.startDate.getFullYear()
+                        }                       
+                        if (thisDuesAmount.endDate){
+                            console.log("sample ending date should be 4/1/xxxx" + JSON.stringify(thisDuesAmount.endDate));
+                            duesSubObject.endMonth = thisDuesAmount.endDate.getMonth() + 1,
+                            duesSubObject.endYear = thisDuesAmount.endDate.getFullYear()
+                        }
+                        thisShareholder.dues.push(duesSubObject);
                     }
                 })
             })
-            console.log("Sending shareholder list to ejs 💰")
+            console.log(`Sending shareholder list to ejs 💰.   Sample shareholder: ${JSON.stringify(shareholdersList[0])}`);
             res.render('./partials/shareholders', {shareholdersList: shareholdersList, error: null});
         })
         .catch(duesError => {
