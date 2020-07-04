@@ -1,0 +1,8 @@
+.sidebar {
+    background-color: grey;
+}
+.shareholderRow:hover {
+    color: grey;
+    background-color: black;
+    box-shadow: 0 0 5px blue;
+}

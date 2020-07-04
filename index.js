@@ -27,7 +27,6 @@ app.set('view engine', 'ejs');
 app.use(ejsLayouts);
 app.use(require('morgan')('dev'));
 app.use(helmet());
-app.use(Express.static(__dirname + "/public"));
 
 const sessionStore = new SequelizeStore({
     db: db.sequelize,

@@ -16,7 +16,7 @@
             </th>
         </tr>
         <% shareholdersList.forEach(shareholder => { %>
-            <tr>
+            <tr class="shareholderRow" onclick="<%= `window.location.href='/shareholders/${shareholder.id}'` %>">
                 <td>
                     <p><%= shareholder.name %></p>
                     <% if (shareholder.name2){ %>
@@ -46,3 +46,4 @@
         <% }) %>
     </table>
 <% } %>
+<div class='shareholderRow'>blah blah</div>

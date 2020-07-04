@@ -4,16 +4,24 @@ const router = express.Router();
 
 router.get('/:id', (req,res) => {
     //console.log("in shareholders show route, looking for id " + req.params.id);
-    db.shareholder.findOne({
-        where: {id: req.params.id},
-        include: [db.unit]
-    })
-    .then(shareholder => {
-        res.render('./partials/showShareholder', {shareholder});
-    })
-    .catch(error => {
-        console.log(`🧲🧲🧲 Error retrieving shareholder: ${JSON.stringify(error)}`);
-    })
+    //db.shareholder.findOne({
+    //  where: {id: req.params.id},
+    if (req.params.id != 'style.css'){
+        db.shareholder.findByPk(
+            req.params.id, 
+            {
+                include: [db.unit]
+            }
+        )
+        .then(shareholder => {
+            res.render('./partials/showShareholder', {shareholder});
+        })
+        .catch(error => {
+            console.log(`🧲🧲🧲 Error retrieving shareholder: ${JSON.stringify(error)}`);
+        })
+    } else {
+        console.log("🪓🪓🪓🪓 req params was style.css again");
+    }
 });
 
 
