@@ -1,0 +1,33 @@
+<h2>Add New Transaction</h2>
+<form method="POST" action="/transactions">
+    <div class="form-group">
+        <label for="date">date:</label>
+        <input class="form-control" type="date" name="date">
+    </div>
+    <div class="form-group">
+        <label for="amount">amount:</label>
+        <input class="form-control" type="text" name="amount">
+        
+    </div>
+    <div class="form-group">
+        <label for="checkNumber">check number:</label>
+        <input class="form-control" type="text" name="checkNumber">
+    </div>
+    <div class="form-group">
+        <label for="category">toward:</label>
+        <input class="form-control" type="text" name="category" value="dues">
+    </div>
+    <div class="form-group">
+        <label for="shareholder">shareholder:</label>
+        <select class="form-control" id="shareholder">
+            <% shareholderList.forEach(shareholder => { %>
+                <option value="<%= shareholder.id %>"><%= shareholder.name %></option>
+            <% }) %>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="notes">additional notes:</label>
+        <input class="form-control" type="text" name="notes">
+    </div>
+    <input class="btn btn-primary" type="submit" value="Submit">
+</form>

@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     date: DataTypes.DATE,
     category: DataTypes.STRING,
     checkNumber: DataTypes.INTEGER,
+    notes: DataTypes.TEXT,
     shareholderId: DataTypes.INTEGER
   }, {});
   transaction.associate = function(models) {

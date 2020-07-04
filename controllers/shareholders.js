@@ -46,7 +46,7 @@ router.get('/', (req, res) => {
                 thisShareholder.dues = [];
                 duesList.forEach(thisDuesAmount => {
                     if (thisShareholder.unit.size === thisDuesAmount.size){
-                        let duesSubObject = {
+                        let duesSubObject = {  // a duesSubObject is a monthly dues charge coupled with its start & end dates
                             amount: thisDuesAmount.amount,
                             // parse start & end dates into months & years, since that's all that matters for counting the amount charged
                             startMonth: thisDuesAmount.startDate.getMonth() + 1, //getMonth returns a month from 0-11, but I want it to be 1-12
@@ -62,6 +62,7 @@ router.get('/', (req, res) => {
                         thisShareholder.dues.push(duesSubObject);
                     }
                 })
+                //**************STILL NEED TO REMOVE CHARGES THAT PREDATE SHAREHOLDER MOVE-IN */
             })
             //now compute sum of all dues charges levied against each shareholder
             //this second shareholdersList.foreach loop looks redundant, but will make for easier refactoring later by keeping functions separate
