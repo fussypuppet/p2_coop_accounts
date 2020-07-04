@@ -19,7 +19,7 @@
     </div>
     <div class="form-group">
         <label for="shareholder">shareholder:</label>
-        <select class="form-control" id="shareholder" required>
+        <select class="form-control" id="shareholder" name="shareholder" required>
             <option value="">select shareholder</option>
             <% shareholderList.forEach(shareholder => { %>
                 <option value="<%= shareholder.id %>"><%= shareholder.name %></option>

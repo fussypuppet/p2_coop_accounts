@@ -13,8 +13,21 @@ router.get('/new', (req,res) => {
     })
 })
 
-router.post('/', (req,res) => {     //********** STUB */
-    res.redirect('/transactions/new');
+router.post('/', (req,res) => {
+    db.transaction.create({
+        amount: req.body.amount,
+        date: req.body.date,
+        category: req.body.category,
+        checkNumber: req.body.checkNumber,
+        notes: req.body.notes,
+        shareholderId: req.body.shareholder
+    })
+    .then(createResponse => {
+        console.log(`🔮🔮🔮 Transaction created: ${JSON.stringify(createResponse)}`);
+    }).catch(error => {
+        console.log(`🩸🩸🩸Error creating transaction: ${JSON.stringify(error)}`);
+    })
+    res.redirect(`/shareholders/${req.body.shareholder}`);
 })
 
 module.exports = router;
