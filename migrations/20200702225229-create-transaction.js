@@ -22,6 +22,9 @@ module.exports = {
       checkNumber: {
         type: Sequelize.INTEGER
       },
+      notes: {
+        type: Sequelize.TEXT
+      },
       shareholderId: {
         allowNull: false,
         type: Sequelize.INTEGER
