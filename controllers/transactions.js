@@ -14,7 +14,7 @@ router.get('/new', (req,res) => {
 })
 
 router.post('/', (req,res) => {     //********** STUB */
-    res.render('./partials/newTransaction');
+    res.redirect('/transactions/new');
 })
 
 module.exports = router;

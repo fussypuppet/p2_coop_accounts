@@ -2,11 +2,11 @@
 <form method="POST" action="/transactions">
     <div class="form-group">
         <label for="date">date:</label>
-        <input class="form-control" type="date" name="date">
+        <input class="form-control" type="date" name="date" required>
     </div>
     <div class="form-group">
         <label for="amount">amount:</label>
-        <input class="form-control" type="text" name="amount">
+        <input class="form-control" type="text" name="amount" required>
         
     </div>
     <div class="form-group">
@@ -19,7 +19,8 @@
     </div>
     <div class="form-group">
         <label for="shareholder">shareholder:</label>
-        <select class="form-control" id="shareholder">
+        <select class="form-control" id="shareholder" required>
+            <option value="">select shareholder</option>
             <% shareholderList.forEach(shareholder => { %>
                 <option value="<%= shareholder.id %>"><%= shareholder.name %></option>
             <% }) %>
