@@ -13,6 +13,26 @@ router.get('/new', (req,res) => {
     })
 })
 
+router.get("/:id/edit", (req,res) => {
+    db.transaction.findByPk(req.params.id)
+    .then(transaction => {
+        db.shareholder.findAll()
+        .then(shareholdersList => {
+            res.render('./partials/editTransaction', {transaction: transaction, shareholdersList: shareholdersList});
+        })
+        .catch(error => {
+            console.log(`Error in edit transaction method while retrieving shareholder list: ${JSON.stringify(error)}`);
+        })
+    })
+    .catch(error => {
+        console.log(`Error in edit transaction method while retrieving transaction: ${JSON.stringify(error)}`);
+    })
+})
+
+router.post("/:id/update", (req, res) => { //stub
+    res.redirect('/shareholders');
+})
+
 router.post('/', (req,res) => {
     db.transaction.create({
         amount: req.body.amount,
