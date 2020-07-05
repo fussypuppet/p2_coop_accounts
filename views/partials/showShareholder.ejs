@@ -1,6 +1,6 @@
 <div class="container">
     <h2><%= shareholder.name %>, Unit <%= shareholder.unit.number %></h2>
-    <h3>Shareholder since <%= shareholder.startDate.getMonth() %>/<%= shareholder.startDate.getFullYear() %></h3>
+    <h3>Shareholder since <%= shareholder.startDate.getMonth() + 1 %>/<%= shareholder.startDate.getFullYear() %></h3>
     <h3>Transaction History</h3>
     <table class="table">
         <tr>
@@ -10,11 +10,12 @@
             <th>Amount</th>
             <th>Notes</th>
             <th>Running Balance</th>
+            <th>Actions</th>
         </tr>
         <% shareholder.transactions.forEach(transaction => { %>
             <tr>
                 <td>
-                    <%= transaction.date.getMonth() %>/
+                    <%= transaction.date.getMonth() + 1 %>/
                     <%= transaction.date.getDate() %>/
                     <%= transaction.date.getFullYear() %>
                 </td>
@@ -30,7 +31,15 @@
                 <td>
                     <%= transaction.notes %>
                 </td>
-                <td></td>
+                <td>
+                    <%= transaction.runningBalance %>
+                </td>
+                <td>
+                    <% if (transaction.amount > 0) { %>
+                        <button class="btn btn-secondary">Edit</button>
+                        <button class="btn btn-secondary">Delete</button>
+                    <% } %>
+                </td>
             </tr>
         <% }) %>
     </table>

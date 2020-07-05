@@ -2,6 +2,37 @@ const express = require('express');
 const db = require('../models');
 const router = express.Router();
 
+function fillDuesGaps(inputDuesList){
+    //receives a list of dues db entries of a single unit size in ascending order of start date.  The entries list their effective start date and exclusive end date(if any).  The dates are in the date format returned by sequelize.
+    //outputs a list of month-by-month dues amounts formatted as transactions [{amount: <-XXX>, category: "dues", checkNumber: "", date: <date object for the first of the relevant month>}].   There will be an entry for every month in the span covered by the input.
+    let outputDuesList = [];
+    inputDuesList.forEach(dbDuesEntry => {
+        // if this entry has no end date, make it end next month (so it matches exclusive end dates elsewhere in the list).  The rest of this function can then treat all dbDuesEntries as equally shaped
+        if (!dbDuesEntry.endDate){
+            let today = new Date();
+            let thisEndDate = new Date(today.getFullYear(), (today.getMonth() + 1)); // thisEndDate is now the first moment of next month
+            dbDuesEntry.endDate = thisEndDate;
+        }
+        let potentialOutputDate = new Date(dbDuesEntry.startDate);
+        while (potentialOutputDate < dbDuesEntry.endDate){  // starting with the start date, if the date is before the end date, add it to the output, then add a month and check again etc
+            outputDuesList.push({amount: -(dbDuesEntry.amount), date: potentialOutputDate, category: "dues", checkNumber: ""});
+            potentialOutputDate = new Date(potentialOutputDate.getFullYear(), (potentialOutputDate.getMonth() + 1));
+        }
+    })
+    return outputDuesList;
+}
+
+function cropTransactionsByDate(inputTransactionList, cutoffDate){
+    //receives a list of transactions in ascending order and removes all that are older than a cutoff date 
+    for (i=0; i< inputTransactionList.length; i++){
+        if (inputTransactionList[i].date >= cutoffDate){   // if this the first transaction that is on the good side of the cutoff, all entries before it should be spliced out
+            console.log("transaction cutoff found at " + JSON.stringify(inputTransactionList[i]) + " and cutoff date " + cutoffDate + " and index " + i);
+            inputTransactionList.splice(0, i);
+            break;
+        }        
+    }
+}
+
 router.get('/:id', (req,res) => {
     //console.log("in shareholders show route, looking for id " + req.params.id);
     //db.shareholder.findOne({
@@ -14,7 +45,26 @@ router.get('/:id', (req,res) => {
             }
         )
         .then(shareholder => {
-            res.render('./partials/showShareholder', {shareholder});
+            db.dues.findAll({
+                where: {
+                    size: shareholder.unit.size
+                }
+            })
+            .then(dbDuesList => {
+                let filledDuesList = fillDuesGaps(dbDuesList);
+                cropTransactionsByDate(filledDuesList, shareholder.startDate);
+                //console.log(`♻️♻️♻️♻️♻️♻️♻️♻️ hopefully filled and cropped list: ${JSON.stringify(filledDuesList)}`);
+                shareholder.transactions = shareholder.transactions.concat(filledDuesList); // concatenate dues charges to dues payments
+                shareholder.transactions.sort(function(a, b){ return a.date - b.date});  // collate charges & payments by ascending date
+                shareholder.transactions.forEach((transaction, index) => {  // add running balance to transaction list
+                    if (index > 0){
+                        transaction.runningBalance = shareholder.transactions[index-1].runningBalance + parseInt(transaction.amount);
+                    } else {
+                        transaction.runningBalance = parseInt(transaction.amount);
+                    }
+                })
+                res.render('./partials/showShareholder', {shareholder});
+            })
         })
         .catch(error => {
             console.log(`🧲🧲🧲 Error retrieving shareholder: ${JSON.stringify(error)}`);
