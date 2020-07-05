@@ -10,7 +10,7 @@ router.get('/:id', (req,res) => {
         db.shareholder.findByPk(
             req.params.id, 
             {
-                include: [db.unit]
+                include: [db.unit, db.transaction]
             }
         )
         .then(shareholder => {

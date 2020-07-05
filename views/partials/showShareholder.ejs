@@ -1,1 +1,37 @@
-<h2><%= shareholder.name %>, <%= shareholder.unit.number %></h2>
+<div class="container">
+    <h2><%= shareholder.name %>, Unit <%= shareholder.unit.number %></h2>
+    <h3>Shareholder since <%= shareholder.startDate.getMonth() %>/<%= shareholder.startDate.getFullYear() %></h3>
+    <h3>Transaction History</h3>
+    <table class="table">
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Check #</th>
+            <th>Amount</th>
+            <th>Notes</th>
+            <th>Running Balance</th>
+        </tr>
+        <% shareholder.transactions.forEach(transaction => { %>
+            <tr>
+                <td>
+                    <%= transaction.date.getMonth() %>/
+                    <%= transaction.date.getDate() %>/
+                    <%= transaction.date.getFullYear() %>
+                </td>
+                <td>
+                    <%= transaction.category %>
+                </td>
+                <td>
+                    <%= transaction.checkNumber %>
+                </td>
+                <td>
+                    $<%= transaction.amount %>
+                </td>
+                <td>
+                    <%= transaction.notes %>
+                </td>
+                <td></td>
+            </tr>
+        <% }) %>
+    </table>
+</div>
