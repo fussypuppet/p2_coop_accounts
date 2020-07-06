@@ -6,3 +6,6 @@
     background-color: black;
     box-shadow: 0 0 5px blue;
 }
+.delete {
+    display: inline-block;
+}

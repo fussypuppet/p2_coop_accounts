@@ -36,8 +36,10 @@
                 </td>
                 <td>
                     <% if (transaction.amount > 0) { %>
-                        <button class="btn btn-secondary" onclick="<%= `window.location.href='/transactions/${transaction.id}/edit'` %>">Edit</button>
-                        <button class="btn btn-secondary">Delete</button>
+                        <button class="btn btn-secondary" onclick="<%= `window.location.href='/transactions/edit/${transaction.id}'` %>">Edit</button>
+                        <form class="delete" method="POST" action="<%= `/transactions/delete/${transaction.id}?_method=DELETE` %>">
+                            <input class="btn btn-secondary" type='submit' value="Delete">
+                        </form>
                     <% } %>
                 </td>
             </tr>

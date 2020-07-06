@@ -11,6 +11,7 @@ const session = require('express-session');
 const flash = require('flash');
 const passport = require('./config/ppConfig');
 const db = require('./models');
+const methodOverride = require('method-override');
 
 //add a link to our customer middleware for isLoggedIn
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -27,6 +28,8 @@ app.set('view engine', 'ejs');
 app.use(ejsLayouts);
 app.use(require('morgan')('dev'));
 app.use(helmet());
+app.use(methodOverride('_method'));
+
 
 const sessionStore = new SequelizeStore({
     db: db.sequelize,

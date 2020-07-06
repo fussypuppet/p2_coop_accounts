@@ -13,7 +13,7 @@ router.get('/new', (req,res) => {
     })
 })
 
-router.get("/:id/edit", (req,res) => {
+router.get("/edit/:id", (req,res) => {
     db.transaction.findByPk(req.params.id)
     .then(transaction => {
         db.shareholder.findAll()
@@ -29,8 +29,36 @@ router.get("/:id/edit", (req,res) => {
     })
 })
 
-router.post("/:id/update", (req, res) => { //stub
-    res.redirect('/shareholders');
+router.put("/edit/:id", (req, res) => {
+    console.log("💛💛💛💛in transaction update method with date " + req.body.date)
+    db.transaction.update({
+        date: req.body.date,
+        category: req.body.category,
+        checkNumber: req.body.checkNumber,
+        amount: req.body.amount,
+        notes: req.body.notes,
+        shareholderId: req.body.shareholder
+    }, { where: {id: req.params.id}
+    })
+    .then(updateResult => {
+        res.redirect(`/shareholders/${req.body.shareholder}`);
+    })
+    .catch(error => {
+        console.log(`🔴🔴🔴 Error in transaction update method: ${JSON.stringify(error)}`);
+    }) 
+})
+
+router.delete("/delete/:id", (req, res) => {
+    db.transaction.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(destroyResult => {
+        res.redirect(`/shareholders`);
+    }).catch(error => {
+        console.log(`🔺🔺🔺🔺 Error in delete method: ${JSON.stringify(error)}`);
+    })
 })
 
 router.post('/', (req,res) => {

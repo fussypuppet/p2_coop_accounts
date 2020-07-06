@@ -34,7 +34,7 @@ function cropTransactionsByDate(inputTransactionList, cutoffDate){
 }
 
 router.get('/:id', (req,res) => {
-    //console.log("in shareholders show route, looking for id " + req.params.id);
+    console.log("💙💙💙💙💙in shareholders show route, looking for id " + req.params.id);
     //db.shareholder.findOne({
     //  where: {id: req.params.id},
     if (req.params.id != 'style.css'){
