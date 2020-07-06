@@ -67,7 +67,12 @@ router.get('/:id', (req,res) => {
                         transaction.runningBalance = parseInt(transaction.amount);
                     }
                 })
-                res.render('./partials/showShareholder', {shareholder});
+                //Now construct query string to send to QuickChart API.  This will be a src attribute for an img html element in the view.
+                //Map functions retrieve lists of dates and amounts from shareholder.transactions
+                let theseDates = shareholder.transactions.map(transaction => transaction.date);
+                console.log(`🇬🇵🇬🇵🇬🇵🇬🇵🇬🇵🇬🇵🇬🇵 trial date list: ${JSON.stringify(theseDates)}`);
+                let graphImgSrc = `https://quickchart.io/chart?c={type:%27line%27,data:{labels:${JSON.stringify(shareholder.transactions.map(transaction => transaction.date))},datasets:[{label:%27Running%20Balance%27,data:${JSON.stringify(shareholder.transactions.map(transaction => transaction.runningBalance))},fill:false,borderColor:%27red%27}]}}`;
+                res.render('./partials/showShareholder', {shareholder, graphImgSrc});
             })
         })
         .catch(error => {

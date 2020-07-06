@@ -29,21 +29,7 @@
                 <td>
                     <%= shareholder.balance %>
                 </td>
-                <% /* %>
-                <td>
-                    <% shareholder.dues.forEach(duesAmount => { %>
-                        <p>$<%= duesAmount.amount %>, from <%= duesAmount.startMonth %>/<%= duesAmount.startYear %> to 
-                            <% if (duesAmount.endMonth) { %>
-                                <%= duesAmount.endMonth - 1 %>/<%= duesAmount.endYear %>
-                            <% } else { %>
-                                present
-                            <% } %>
-                        </p>
-                    <% }) %>
-                </td>
-                <% */ %>
             </tr>
         <% }) %>
     </table>
 <% } %>
-<div class='shareholderRow'>blah blah</div>
