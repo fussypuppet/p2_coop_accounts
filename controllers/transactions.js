@@ -31,8 +31,10 @@ router.get("/edit/:id", (req,res) => {
 
 router.put("/edit/:id", (req, res) => {
     console.log("💛💛💛💛in transaction update method with date " + req.body.date)
+    // see Create route for reasoning behind reformatting req.body.date
+    let dateForDb = `${req.body.date.substring(5, 7)}/${req.body.date.substring(8, 10)}/${req.body.date.substring(0, 4)}`;
     db.transaction.update({
-        date: req.body.date,
+        date: dateForDb,
         category: req.body.category,
         checkNumber: req.body.checkNumber,
         amount: req.body.amount,
@@ -62,9 +64,19 @@ router.delete("/delete/:id", (req, res) => {
 })
 
 router.post('/', (req,res) => {
+    // req.body arrives with date in the format "YYYY-MM-DD".
+    // Javascript, when it converts that to a Date object, interprets that as midnight on that date in the GMT time zone.
+    // That stinks, because midnight on 2020-04-20 GMT is 2020-04-19 PST, and gets saved in the db as that date, and afterwards shows up in views as that date
+    // Luckily, Javscript interprets strings in the format "MM/DD/YYYY" differently.  Yes, really.
+    // "04/20/2020" gets interpreted as 04/20 PST instead of GMT.  Submitting dates to the db in that format prevents magically losing a day when they're displayed later on.
+    // So rather than worry about converting time zones everywhere I might ever query the db, I'm standardizing them on input:  here, the update method, and the seed file.
+    // THIS IS STILL PROBLEMATIC.  Users east of Greenwich or west of the Pacific Coast will still see the wrong dates.
+    // When refactoring, I should consider changing the date field to a string, to represent the idea of a date instead of representing some specific moment in time.
+    let dateForDb = `${req.body.date.substring(5, 7)}/${req.body.date.substring(8, 10)}/${req.body.date.substring(0, 4)}`;
+    console.log(`constructed date ${dateForDb}`);
     db.transaction.create({
         amount: req.body.amount,
-        date: req.body.date,
+        date: dateForDb,
         category: req.body.category,
         checkNumber: req.body.checkNumber,
         notes: req.body.notes,
