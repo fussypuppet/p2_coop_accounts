@@ -2,6 +2,7 @@ const express = require('express');
 const db = require('../models');
 const router = express.Router();
 const Chart = require('chart.js');
+const { sequelize } = require('../models');
 
 function fillDuesGaps(inputDuesList){
     //receives a list of dues db entries of a single unit size in ascending order of start date.  The entries list their effective start date and exclusive end date(if any).  The dates are in the date format returned by sequelize.
@@ -25,13 +26,15 @@ function fillDuesGaps(inputDuesList){
 
 function cropTransactionsByDate(inputTransactionList, cutoffDate){
     //receives a list of transactions in ascending order and removes all that are older than a cutoff date 
+    let outputTransactionList = [];
     for (i=0; i< inputTransactionList.length; i++){
-        if (inputTransactionList[i].date >= cutoffDate){   // if this the first transaction that is on the good side of the cutoff, all entries before it should be spliced out
+        if (inputTransactionList[i].date >= cutoffDate){   // if this the first transaction that is on the good side of the cutoff, all entries before it should be sliced out
             console.log("transaction cutoff found at " + JSON.stringify(inputTransactionList[i]) + " and cutoff date " + cutoffDate + " and index " + i);
-            inputTransactionList.splice(0, i);
+            outputTransactionList = inputTransactionList.slice(i); // since shareholders index will be running this multiple times on a given input, we don't want to change input in-place
             break;
         }        
     }
+    return outputTransactionList
 }
 
 router.get('/:id', (req,res) => {
@@ -49,13 +52,13 @@ router.get('/:id', (req,res) => {
             db.dues.findAll({
                 where: {
                     size: shareholder.unit.size
-                }
+                },
+                order: [["startDate", "ASC"]]
             })
             .then(dbDuesList => {
                 let filledDuesList = fillDuesGaps(dbDuesList);
-                cropTransactionsByDate(filledDuesList, shareholder.startDate);
-                //console.log(`♻️♻️♻️♻️♻️♻️♻️♻️ hopefully filled and cropped list: ${JSON.stringify(filledDuesList)}`);
-                shareholder.transactions = shareholder.transactions.concat(filledDuesList); // concatenate dues charges to dues payments
+                let croppedFilledDuesList = cropTransactionsByDate(filledDuesList, shareholder.startDate);
+                shareholder.transactions = shareholder.transactions.concat(croppedFilledDuesList); // concatenate dues charges to dues payments
                 shareholder.transactions.sort(function(a, b){ return a.date - b.date});  // collate charges & payments by ascending date
                 shareholder.transactions.forEach((transaction, index) => {  // add running balance to transaction list
                     if (index > 0){
@@ -80,15 +83,49 @@ router.get('/', (req, res) => {
     //end goal:  render a chart of shareholder names, their units, and their current balance
     //first, retrieve all shareholders and their unit numbers
     db.shareholder.findAll({
-        include: [db.unit]
+        include: [db.unit, db.transaction],
+        order: sequelize.col('unit.number')
     })
     .then(shareholdersList => {
         //then retrieve all dues amounts and assign them to their appropriate shareholder/unit rows
-        console.log("Retrieved shareholder & unit index. Beginning retrieval of dues");
         db.dues.findAll({
             order: [['startDate', 'ASC']]
         })
-        .then(duesList => {
+        .then(dbRawDues => {
+            //process raw db results into lists of monthly charges formatted like transactions attached to each shareholder object
+            for (thisSize of ["small", "medium", "large"]){    // to minimize code repetition, do it one size class at a time
+                let rawDuesThisSize = [];
+                dbRawDues.forEach(entry => { // create list of raw db dues entries for a single size of unit
+                    if (entry.size === thisSize){ rawDuesThisSize.push(entry); }
+                })
+                let monthlyChargeList = fillDuesGaps(rawDuesThisSize);  //convert list of single-size db entries into list of monthly charges
+                shareholdersList.forEach(shareholder => {
+                    if (shareholder.unit.size === thisSize){  // find each shareholder of this unit size
+                        let thisShareholderCharges = cropTransactionsByDate(monthlyChargeList, shareholder.startDate); // remove all charges from before that shareholder moved in
+                        shareholder.transactions = shareholder.transactions.concat(thisShareholderCharges); // add charges to shareholder's list of transactions
+                        shareholder.balance = 0;
+                        shareholder.transactions.forEach(transaction => { // and finally sum up all shareholder transactions to get their current balance
+                            shareholder.balance += parseInt(transaction.amount);
+                        })
+                    }
+                })
+            }
+            console.log(`Sending shareholder list to ejs 💰`);
+            res.render('./partials/shareholders', {shareholdersList: shareholdersList, error: null});
+        })
+        .catch(duesError => {
+            console.log(`💋💋💋 Error retrieving dues: ${duesError}`);
+        })
+    }).catch(error => {
+        console.log("Sending shareholder findAll error to ejs 💋")
+        res.render('./partials/shareholders', {shareholdersList: null, error: error});
+    })
+})
+
+
+
+
+/*
             //attach dues amounts to correct shareholders according by unit size, JOIN style
             let today = new Date();
             let todayMonth = today.getMonth() + 1;
@@ -113,7 +150,6 @@ router.get('/', (req, res) => {
                         thisShareholder.dues.push(duesSubObject);
                     }
                 })
-                //**************STILL NEED TO REMOVE CHARGES THAT PREDATE SHAREHOLDER MOVE-IN */
             })
             //now compute sum of all dues charges levied against each shareholder
             //this second shareholdersList.foreach loop looks redundant, but will make for easier refactoring later by keeping functions separate
@@ -141,6 +177,6 @@ router.get('/', (req, res) => {
         res.render('./partials/shareholders', {shareholdersList: null, error: error});
     })
 })
-
+*/
 
 module.exports = router;
