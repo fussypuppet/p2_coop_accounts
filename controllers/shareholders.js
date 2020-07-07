@@ -1,8 +1,8 @@
 const express = require('express');
 const db = require('../models');
 const router = express.Router();
-const Chart = require('chart.js');
 const { sequelize } = require('../models');
+const isLoggedIn = require('../middleware/isLoggedIn');
 
 function fillDuesGaps(inputDuesList){
     //receives a list of dues db entries of a single unit size in ascending order of start date.  The entries list their effective start date and exclusive end date(if any).  The dates are in the date format returned by sequelize.
@@ -29,7 +29,6 @@ function cropTransactionsByDate(inputTransactionList, cutoffDate){
     let outputTransactionList = [];
     for (i=0; i< inputTransactionList.length; i++){
         if (inputTransactionList[i].date >= cutoffDate){   // if this the first transaction that is on the good side of the cutoff, all entries before it should be sliced out
-            console.log("transaction cutoff found at " + JSON.stringify(inputTransactionList[i]) + " and cutoff date " + cutoffDate + " and index " + i);
             outputTransactionList = inputTransactionList.slice(i); // since shareholders index will be running this multiple times on a given input, we don't want to change input in-place
             break;
         }        
@@ -37,10 +36,7 @@ function cropTransactionsByDate(inputTransactionList, cutoffDate){
     return outputTransactionList
 }
 
-router.get('/:id', (req,res) => {
-    console.log("💙💙💙💙💙in shareholders show route, looking for id " + req.params.id);
-    //db.shareholder.findOne({
-    //  where: {id: req.params.id},
+router.get('/:id', isLoggedIn, (req,res) => {
     if (req.params.id != 'style.css'){
         db.shareholder.findByPk(
             req.params.id, 
@@ -70,7 +66,6 @@ router.get('/:id', (req,res) => {
                 //Now construct query string to send to QuickChart API.  This will be a src attribute for an img html element in the view.
                 //Map functions retrieve lists of dates and amounts from shareholder.transactions
                 let theseDates = shareholder.transactions.map(transaction => transaction.date);
-                console.log(`🇬🇵🇬🇵🇬🇵🇬🇵🇬🇵🇬🇵🇬🇵 trial date list: ${JSON.stringify(theseDates)}`);
                 let graphImgSrc = `https://quickchart.io/chart?c={type:%27line%27,data:{labels:${JSON.stringify(shareholder.transactions.map(transaction => transaction.date))},datasets:[{label:%27Running%20Balance%27,data:${JSON.stringify(shareholder.transactions.map(transaction => transaction.runningBalance))},fill:false,borderColor:%27red%27}]}}`;
                 res.render('./partials/showShareholder', {shareholder, graphImgSrc});
             })
@@ -84,7 +79,7 @@ router.get('/:id', (req,res) => {
 });
 
 
-router.get('/', (req, res) => {
+router.get('/', isLoggedIn, (req, res) => {
     //end goal:  render a chart of shareholder names, their units, and their current balance
     //first, retrieve all shareholders and their unit numbers
     db.shareholder.findAll({
@@ -115,7 +110,6 @@ router.get('/', (req, res) => {
                     }
                 })
             }
-            console.log(`Sending shareholder list to ejs 💰`);
             res.render('./partials/shareholders', {shareholdersList: shareholdersList, error: null});
         })
         .catch(duesError => {
@@ -127,61 +121,5 @@ router.get('/', (req, res) => {
     })
 })
 
-
-
-
-/*
-            //attach dues amounts to correct shareholders according by unit size, JOIN style
-            let today = new Date();
-            let todayMonth = today.getMonth() + 1;
-            let todayYear = today.getFullYear();
-            shareholdersList.forEach(thisShareholder => {
-                thisShareholder.dues = [];
-                duesList.forEach(thisDuesAmount => {
-                    if (thisShareholder.unit.size === thisDuesAmount.size){
-                        let duesSubObject = {  // a duesSubObject is a monthly dues charge coupled with its start & end dates
-                            amount: thisDuesAmount.amount,
-                            // parse start & end dates into months & years, since that's all that matters for counting the amount charged
-                            startMonth: thisDuesAmount.startDate.getMonth() + 1, //getMonth returns a month from 0-11, but I want it to be 1-12
-                            startYear: thisDuesAmount.startDate.getFullYear()
-                        }                       
-                        if (thisDuesAmount.endDate){
-                            duesSubObject.endMonth = thisDuesAmount.endDate.getMonth() + 1,
-                            duesSubObject.endYear = thisDuesAmount.endDate.getFullYear()
-                        } else {
-                            duesSubObject.endMonth = todayMonth +1; // yes, we added a month a few lines ago to make todayMonth be from 1-12, but ending months are EXCLUSIVE, and we want to charge for the current month later on
-                            duesSubObject.endYear = todayYear;
-                        }
-                        thisShareholder.dues.push(duesSubObject);
-                    }
-                })
-            })
-            //now compute sum of all dues charges levied against each shareholder
-            //this second shareholdersList.foreach loop looks redundant, but will make for easier refactoring later by keeping functions separate
-            shareholdersList.forEach(thisShareholder => {
-                thisShareholder.totalDuesCharged = 0;
-                //iterate through every dues amount charged through the shareholder, adding theim to the total dues charged counter
-                thisShareholder.dues.forEach(thisDuesObject => { // thisDuesObject = {amount: XX, startDate: XX, and possibly an endDate: XX}
-                    if (thisDuesObject.endYear === thisDuesObject.startYear) { // if it started & ended the same year, we just subtract months
-                        thisShareholder.totalDuesCharged += thisDuesObject.amount * (thisDuesObject.endMonth - thisDuesObject.startMonth); //end months are exclusive
-                    } else { // if dues started & ended in different years, we need to tally months in the first & last years, and add for full years for the years in between
-                        thisShareholder.totalDuesCharged += thisDuesObject.amount * (13 - thisDuesObject.startMonth); //start months are inclusive
-                        thisShareholder.totalDuesCharged += thisDuesObject.amount * (thisDuesObject.endMonth - 1); //end months are exclusive
-                        thisShareholder.totalDuesCharged += thisDuesObject.amount * (thisDuesObject.endYear - thisDuesObject.startYear - 1);
-                    }
-                })
-            })
-            console.log(`Sending shareholder list to ejs 💰.   Sample shareholder: ${JSON.stringify(shareholdersList[0])}`);
-            res.render('./partials/shareholders', {shareholdersList: shareholdersList, error: null});
-        })
-        .catch(duesError => {
-            console.log(`💋💋💋 Error retrieving dues: ${duesError}`);
-        })
-    }).catch(error => {
-        console.log("Sending shareholder findAll error to ejs 💋")
-        res.render('./partials/shareholders', {shareholdersList: null, error: error});
-    })
-})
-*/
 
 module.exports = router;

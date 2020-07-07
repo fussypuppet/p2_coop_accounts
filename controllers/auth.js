@@ -1,4 +1,5 @@
 const express = require('express');
+const isLoggedIn = require('../middleware/isLoggedIn');
 const router = express.Router();
 
 const db = require('../models');
@@ -45,14 +46,16 @@ router.get('/login', function(req,res){
     res.render("auth/login");
 })
 
+router.get('/edit', (req, res) => {
+    res.render("./partials/editUser", {thisSession: req.session});
+})
+
 router.post('/login', function(req,res,next){           // our first use of keyword "next".  This finds next instance of same route pattern and then executes it
     passport.authenticate('local', function(error, user,info) {
         //if no user is authenitcated
         if (!user){
             req.flash('error', "invalid username or password");
-            //req.session.save(function(){
-                return res.redirect('/auth/login');
-            //})
+            return res.redirect('/auth/login');
             //save our user session no username
             //redirect user to try logging in again
         }
@@ -76,7 +79,12 @@ router.post('/login', passport.authenticate('local', {
     failureFlash: 'Invalid username or password'
 }));
 
-router.get('/logout', function(req,res){
+router.put('/:id', (req,res) => {
+    console.log("in auth put");
+    res.redirect('/shareholders');
+})
+
+router.get('/logout', isLoggedIn, function(req,res){
     req.logout();
     res.redirect('/');
 })

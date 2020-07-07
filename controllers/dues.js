@@ -1,5 +1,6 @@
 const express = require('express');
 const db = require('../models');
+const isLoggedIn = require('../middleware/isLoggedIn');
 const router = express.Router();
 
 router.get('/new', (req,res) => {
@@ -7,7 +8,7 @@ router.get('/new', (req,res) => {
 })
 
 //REFACTOR LATER TO IMPLEMENT BEST PRACTICE IN PARSING STRINGS TO DATES
-router.post('/', (req,res) => {
+router.post('/', isLoggedIn, (req,res) => {
     //first, must add ending dates to the monthly dues amounts these new ones are replacing, i.e. the dues amounts that are missing endDates in the database
     //in future, might want to refactor by removing endDate as an attribute entirely, and just infer the existence of an ending date by the presence of a dues entry with a more recent start date
     //but for now, this seems like a more error-proof way.  The app will throw a fit in /shareholders if ending dates are earlier than starting ones, as it should
@@ -17,7 +18,6 @@ router.post('/', (req,res) => {
         {where: {endDate: null}}
     )
     .then(function(updateResponse){
-        console.log(`🌙🌙🌙 Old dues closed off: ${JSON.stringify(updateResponse)}`);
         //now to add new dues amounts    
         //user will input up to three dollar amounts (for small, medium, and/or large units)
         //so need to use a bulk create command.
@@ -36,8 +36,7 @@ router.post('/', (req,res) => {
         db.dues.bulkCreate(newDuesList)
         //also need to add ending date to previous dues amounts (i.e. any that are null in their endDate field);
         .then(function(creationResponse){
-            console.log(`🧚🏾‍♀️🧚🏾‍♀️🧚🏾‍♀️ New dues inserted into database: ${JSON.stringify(creationResponse)}`);
-            
+            res.redirect('/shareholders');
         })
         .catch(function(createError){
             console.log(`🩸🩸🩸 Dues create error: ${JSON.stringify(createError)}`);
@@ -46,9 +45,6 @@ router.post('/', (req,res) => {
     .catch(function(updateError){
         console.log(`🚨🚨🚨 Dues update error: ${JSON.stringify(updateError)}`);
     });
-
-    
-    res.redirect('/shareholders');
 })
 
 module.exports = router;

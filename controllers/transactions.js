@@ -1,9 +1,10 @@
 const express = require('express');
 const db = require('../models');
 const { route } = require('./auth');
+const isLoggedIn = require('../middleware/isLoggedIn');
 const router = express.Router();
 
-router.get('/new', (req,res) => {
+router.get('/new', isLoggedIn, (req,res) => {
     db.shareholder.findAll()
     .then(shareholderList => {
         res.render('./partials/newTransaction', {shareholderList: shareholderList});
@@ -13,7 +14,7 @@ router.get('/new', (req,res) => {
     })
 })
 
-router.get("/edit/:id", (req,res) => {
+router.get("/edit/:id", isLoggedIn, (req,res) => {
     db.transaction.findByPk(req.params.id)
     .then(transaction => {
         db.shareholder.findAll()
@@ -29,8 +30,7 @@ router.get("/edit/:id", (req,res) => {
     })
 })
 
-router.put("/edit/:id", (req, res) => {
-    console.log("💛💛💛💛in transaction update method with date " + req.body.date)
+router.put("/edit/:id", isLoggedIn, (req, res) => {
     // see Create route for reasoning behind reformatting req.body.date
     let dateForDb = `${req.body.date.substring(5, 7)}/${req.body.date.substring(8, 10)}/${req.body.date.substring(0, 4)}`;
     db.transaction.update({
@@ -50,7 +50,7 @@ router.put("/edit/:id", (req, res) => {
     }) 
 })
 
-router.delete("/delete/:id", (req, res) => {
+router.delete("/delete/:id", isLoggedIn, (req, res) => {
     db.transaction.destroy({
         where: {
             id: req.params.id
@@ -73,7 +73,6 @@ router.post('/', (req,res) => {
     // THIS IS STILL PROBLEMATIC.  Users east of Greenwich or west of the Pacific Coast will still see the wrong dates.
     // When refactoring, I should consider changing the date field to a string, to represent the idea of a date instead of representing some specific moment in time.
     let dateForDb = `${req.body.date.substring(5, 7)}/${req.body.date.substring(8, 10)}/${req.body.date.substring(0, 4)}`;
-    console.log(`constructed date ${dateForDb}`);
     db.transaction.create({
         amount: req.body.amount,
         date: dateForDb,

@@ -14,6 +14,7 @@ const db = require('./models');
 const methodOverride = require('method-override');
 
 //add a link to our customer middleware for isLoggedIn
+const isLoggedIn = require('./middleware/isLoggedIn');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 
