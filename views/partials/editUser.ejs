@@ -1,22 +1,22 @@
 <div class="container">
     <h2>Edit User Information</h2>
-    <form method="POST" action="<%= `/auth/${thisSession.passport.user}?_method=PUT` %>">
+    <!-- <form method="POST" action="<%= `/auth/${thisSession.passport.user}?_method=PUT` %>"> -->
+    <form method="POST" action="/auth?_method=PUT">
         <div class="form-group">
             <label for="email">email address:</label>
-            <input class="form-control" type="email" id="email" name="email">
+            <input class="form-control" type="email" id="email" name="email" required>
         </div>
         <div class="form-gropu">
             <label for="name">name:</label>
-            <input class="form-control" type="text" id="name" name="name">
+            <input class="form-control" type="text" id="name" name="name" required>
         </div>
         <div class="form-group">
             <label for="oldPassword">Old Password:</label>
-            <input class="form-control" type="password" id="oldPassword" name="oldPassword">
+            <input class="form-control" type="password" id="oldPassword" name="password" required>
         </div>
         <div class="form-group">
             <label for="newPassword">New Password:</label>
-            <input class="form-control" type="password" id="newPassword" name="newPassword">
+            <input class="form-control" type="password" id="newPassword" name="newPassword" required>
         </div>
         <input class="btn btn-primary" type="submit" value="Submit">
     </form>
-<%= JSON.stringify(thisSession) %>

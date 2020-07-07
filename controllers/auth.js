@@ -52,7 +52,7 @@ router.get('/edit', (req, res) => {
 
 router.post('/login', function(req,res,next){           // our first use of keyword "next".  This finds next instance of same route pattern and then executes it
     passport.authenticate('local', function(error, user,info) {
-        //if no user is authenitcated
+        //if no user is authenticated
         if (!user){
             req.flash('error', "invalid username or password");
             return res.redirect('/auth/login');
@@ -79,10 +79,43 @@ router.post('/login', passport.authenticate('local', {
     failureFlash: 'Invalid username or password'
 }));
 
-router.put('/:id', (req,res) => {
-    console.log("in auth put");
-    res.redirect('/shareholders');
+router.put('/', function(req,res,next) {
+    console.log("🟣🟣🟣🟣🟣in auth put");
+    passport.authenticate('local', function(error, user, info){
+        if (!user){
+            console.log("🟣🟣🟣🟣🟣No User");
+            return res.redirect('/auth/edit');
+        } else if (error) {
+            console.log("🟣🟣🟣🟣🟣🟣Authentication error in user update route");
+        } else {
+            console.log("🟣🟣🟣🟣🟣Authentication successful.  About to update user");
+            db.user.update({
+                name: req.body.name,
+                password: req.body.newPassword
+            }, {
+                where: {
+                    email: req.body.email
+                }
+            })
+            .then(updateResult => {
+                console.log("🟣🟣🟣🟣🟣User update successful.  About to redirect to login page");
+                return res.redirect('/auth/logout');
+            })
+            .catch(error => {
+                console.log("🟣🟣🟣🟣🟣User update error");
+            })
+        }
+        console.log("🟣🟣🟣🟣🟣Passport authenticate if statement finished without redirecting anywhere");
+    })(req,res,next);
+    console.log("🟣🟣🟣🟣🟣 passport.authenticate finished");
 })
+
+router.put('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/auth/login',
+    successFlash: 'Welcome to our app!',
+    failureFlash: 'Invalid username or password'
+}));
 
 router.get('/logout', isLoggedIn, function(req,res){
     req.logout();
