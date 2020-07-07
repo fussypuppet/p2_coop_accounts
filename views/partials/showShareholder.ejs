@@ -1,6 +1,8 @@
 <div class="container">
     <h2><%= shareholder.name %>, Unit <%= shareholder.unit.number %></h2>
     <h3>Shareholder since <%= shareholder.startDate.getMonth() + 1 %>/<%= shareholder.startDate.getFullYear() %></h3>
+    <img src="<%= graphImgSrc %>" alt="graph of running balances">
+    <hr>
     <h3>Transaction History</h3>
     <table class="table">
         <tr>
@@ -45,5 +47,4 @@
             </tr>
         <% }) %>
     </table>
-    <img src="<%= graphImgSrc %>" alt="graph of running balances">
 </div>

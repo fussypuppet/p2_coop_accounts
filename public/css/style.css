@@ -1,8 +1,9 @@
-.sidebar {
-    background-color: grey;
+.sidebar, .btn{
+    background-color: #999999;
+    color: black;
 }
-.shareholderRow:hover {
-    color: grey;
+.shareholderRow:hover, .btn:hover{
+    color: #999999;
     background-color: black;
     box-shadow: 0 0 5px blue;
 }
