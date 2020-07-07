@@ -134,7 +134,7 @@ db.dues.bulkCreate([
         endDate: "04/01/2016"
     },
     {
-        size: "small",
+        size: "large",
         amount: 445,
         startDate: "01/01/2016",
         endDate: "04/01/2016"

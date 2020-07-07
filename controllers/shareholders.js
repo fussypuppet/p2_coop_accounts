@@ -65,8 +65,11 @@ router.get('/:id', isLoggedIn, (req,res) => {
                 })
                 //Now construct query string to send to QuickChart API.  This will be a src attribute for an img html element in the view.
                 //Map functions retrieve lists of dates and amounts from shareholder.transactions
-                let theseDates = shareholder.transactions.map(transaction => transaction.date);
-                let graphImgSrc = `https://quickchart.io/chart?c={type:%27line%27,data:{labels:${JSON.stringify(shareholder.transactions.map(transaction => transaction.date))},datasets:[{label:%27Running%20Balance%27,data:${JSON.stringify(shareholder.transactions.map(transaction => transaction.runningBalance))},fill:false,borderColor:%27red%27}]}}`;
+                let theseDates = shareholder.transactions.map(transaction => `${transaction.date.getMonth()+1}-${transaction.date.getFullYear()}`);
+                //we'll construct the map in chunks to avoid having an extremely long line of code
+                let graphImgSrc = `https://quickchart.io/chart?c={type:%27line%27,data:{labels:${JSON.stringify(theseDates)}` // axis labels
+                graphImgSrc = graphImgSrc + `,datasets:[{label:%27Running%20Balance%27,data:${JSON.stringify(shareholder.transactions.map(transaction => transaction.runningBalance))}` // chart data
+                graphImgSrc = graphImgSrc + `,borderWidth:0.5,pointRadius:0,fill:false,borderColor:%27red%27}]}}`; // chart styling options
                 res.render('./partials/showShareholder', {shareholder, graphImgSrc});
             })
         })

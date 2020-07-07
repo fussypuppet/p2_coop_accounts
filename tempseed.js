@@ -1,668 +1,332 @@
 const db = require('./models');
 
-let unit29StartingCheck = 432;
+let unit5StartingCheck = 333;
 
 db.transaction.bulkCreate([
     {
-        date: "04/10/2011",
-        amount: 325,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "05/10/2011",
-        amount: 325,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "06/10/2011",
-        amount: 325,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "07/10/2011",
-        amount: 325,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "08/10/2011",
-        amount: 325,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "09/10/2011",
-        amount: 325,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "10/10/2011",
-        amount: 325,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "12/10/2011",
-        amount: 325,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "01/10/2012",
-        amount: 650,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "02/10/2012",
-        amount: 325,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "03/10/2012",
-        amount: 325,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "04/10/2012",
-        amount: 350,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "05/10/2012",
-        amount: 350,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "06/10/2012",
-        amount: 350,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "07/10/2012",
-        amount: 350,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "08/10/2012",
-        amount: 350,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "09/10/2012",
-        amount: 350,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "10/10/2012",
-        amount: 350,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "11/10/2012",
-        amount: 350,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "12/10/2012",
-        amount: 350,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "01/10/2013",
-        amount: 350,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "02/10/2013",
-        amount: 350,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "03/10/2013",
-        amount: 350,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "04/10/2013",
-        amount: 360,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "05/10/2013",
-        amount: 360,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "06/10/2013",
-        amount: 360,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "07/10/2013",
-        amount: 360,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "08/10/2013",
-        amount: 360,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "09/10/2013",
-        amount: 360,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "10/10/2013",
-        amount: 360,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "11/10/2013",
-        amount: 360,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "12/10/2013",
-        amount: 360,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "01/10/2014",
-        amount: 360,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "02/10/2014",
-        amount: 360,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "03/10/2014",
-        amount: 360,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "04/10/2014",
-        amount: 375,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "05/10/2014",
-        amount: 375,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "06/10/2014",
-        amount: 375,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "07/10/2014",
-        amount: 375,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "08/10/2014",
-        amount: 375,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "09/10/2014",
-        amount: 375,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "10/10/2014",
-        amount: 375,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "11/10/2014",
-        amount: 375,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "12/10/2014",
-        amount: 375,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "01/10/2015",
-        amount: 375,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "02/10/2015",
-        amount: 375,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "03/10/2015",
-        amount: 375,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "04/10/2015",
-        amount: 395,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "05/10/2015",
-        amount: 395,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "06/10/2015",
-        amount: 395,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "08/10/2015",
-        amount: 395,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "08/10/2015",
-        amount: 395,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "09/10/2015",
-        amount: 395,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "10/10/2015",
-        amount: 395,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "11/10/2015",
-        amount: 395,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
-        date: "12/10/2015",
-        amount: 395,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
-    },    {
         date: "01/10/2016",
-        amount: 415,
-        checkNumber: unit29StartingCheck++,
+        amount: 445,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "02/10/2016",
-        amount: 415,
-        checkNumber: unit29StartingCheck++,
+        amount: 445,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "03/10/2016",
-        amount: 415,
-        checkNumber: unit29StartingCheck++,
+        amount: 445,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "04/10/2016",
-        amount: 430,
-        checkNumber: unit29StartingCheck++,
+        amount: 470,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "05/10/2016",
-        amount: 430,
-        checkNumber: unit29StartingCheck++,
+        amount: 470,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "06/10/2016",
-        amount: 430,
-        checkNumber: unit29StartingCheck++,
+        amount: 470,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "07/10/2016",
-        amount: 430,
-        checkNumber: unit29StartingCheck++,
+        amount: 470,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "08/10/2016",
-        amount: 430,
-        checkNumber: unit29StartingCheck++,
+        amount: 470,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "09/10/2016",
-        amount: 430,
-        checkNumber: unit29StartingCheck++,
+        amount: 470,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
+    },    {
+        date: "10/10/2016",
+        amount: 470,
+        checkNumber: unit5StartingCheck++,
+        category: "dues",
+        shareholderId: 25
     },    {
         date: "11/10/2016",
-        amount: 430,
-        checkNumber: unit29StartingCheck++,
+        amount: 470,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
-    },    {
-        date: "11/10/2016",
-        amount: 430,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "12/10/2016",
-        amount: 430,
-        checkNumber: unit29StartingCheck++,
+        amount: 470,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "01/10/2017",
-        amount: 430,
-        checkNumber: unit29StartingCheck++,
+        amount: 470,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "02/10/2017",
-        amount: 430,
-        checkNumber: unit29StartingCheck++,
+        amount: 470,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "03/10/2017",
-        amount: 430,
-        checkNumber: unit29StartingCheck++,
+        amount: 470,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "04/10/2017",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "05/10/2017",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "06/10/2017",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "07/10/2017",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
+    },    {
+        date: "08/10/2017",
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
+        category: "dues",
+        shareholderId: 25
     },    {
         date: "09/10/2017",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
-    },    {
-        date: "09/10/2017",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "10/10/2017",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "11/10/2017",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "12/10/2017",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "01/10/2018",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "02/10/2018",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "03/10/2018",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "04/10/2018",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "05/10/2018",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "06/10/2018",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
-    },    {
-        date: "07/10/2018",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "08/10/2018",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
+    },    {
+        date: "08/10/2018",
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
+        category: "dues",
+        shareholderId: 25
     },    {
         date: "09/10/2018",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "10/10/2018",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "11/10/2018",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "12/10/2018",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "01/10/2019",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "02/10/2019",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "03/10/2019",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 515,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "04/10/2019",
-        amount: 465,
-        checkNumber: unit29StartingCheck++,
+        amount: 570,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "05/10/2019",
-        amount: 555,
-        checkNumber: unit29StartingCheck++,
+        amount: 570,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "06/10/2019",
-        amount: 510,
-        checkNumber: unit29StartingCheck++,
+        amount: 570,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "07/10/2019",
-        amount: 510,
-        checkNumber: unit29StartingCheck++,
+        amount: 570,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "08/10/2019",
-        amount: 510,
-        checkNumber: unit29StartingCheck++,
+        amount: 570,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "09/10/2019",
-        amount: 510,
-        checkNumber: unit29StartingCheck++,
+        amount: 570,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "10/10/2019",
-        amount: 510,
-        checkNumber: unit29StartingCheck++,
+        amount: 570,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "11/10/2019",
-        amount: 510,
-        checkNumber: unit29StartingCheck++,
+        amount: 570,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "12/10/2019",
-        amount: 510,
-        checkNumber: unit29StartingCheck++,
+        amount: 570,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "01/10/2020",
-        amount: 510,
-        checkNumber: unit29StartingCheck++,
+        amount: 570,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "02/10/2020",
-        amount: 510,
-        checkNumber: unit29StartingCheck++,
+        amount: 570,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "03/10/2020",
-        amount: 510,
-        checkNumber: unit29StartingCheck++,
+        amount: 570,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
-    },    {
-        date: "04/10/2020",
-        amount: 510,
-        checkNumber: unit29StartingCheck++,
-        category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     },    {
         date: "05/10/2020",
-        amount: 510,
-        checkNumber: unit29StartingCheck++,
+        amount: 570,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
+    },    {
+        date: "05/10/2020",
+        amount: 570,
+        checkNumber: unit5StartingCheck++,
+        category: "dues",
+        shareholderId: 25
     },    {
         date: "06/10/2020",
-        amount: 510,
-        checkNumber: unit29StartingCheck++,
+        amount: 570,
+        checkNumber: unit5StartingCheck++,
         category: "dues",
-        shareholderId: 3
+        shareholderId: 25
     }    
 ])
 .then(result => {
