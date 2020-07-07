@@ -36,6 +36,34 @@ function cropTransactionsByDate(inputTransactionList, cutoffDate){
     return outputTransactionList
 }
 
+function formatCurrency(inputInteger){ // accepts an integer and return a currency-formatted string with $ and commas
+    function putCommas(inputString, outputString){ 
+        // accepts a string of a positive number, and an incomplete output string from previous recursions and returns a full output string
+        if (outputString.charAt(outputString.length-1) != "$"){ outputString += ",";} // If the output string ends in numbers, add a comma
+        console.log("done adding any necessary commas: " + outputString);
+        let digitsToCrop = inputString.length%3 ? inputString.length%3 : 3; // figure out how many digits to crop off the front of the input string
+        console.log("digits to crop from " + inputString + ", number to crop: " + digitsToCrop);
+        outputString += inputString.slice(0, digitsToCrop);  // add those digits to the growing output string
+        console.log("added to output string: " + outputString);
+        inputString = inputString.slice(digitsToCrop);  // remove them from the input string
+        console.log("cropped from input string: " + inputString);
+        if (inputString){
+            console.log("input string is length " + inputString.length + "and is true");
+            return putCommas(inputString, outputString);  // if the input string has digits left, recurse.  Otherwise return output string.
+        } else {
+            console.log("returning " + outputString);
+            return outputString;
+        }
+    }
+    let outputString = "";
+    if (inputInteger < 0){ 
+        outputString += "-"; 
+        inputInteger = -inputInteger;
+    }
+    outputString += "$";
+    return putCommas(String(inputInteger), outputString);
+}
+
 router.get('/:id', isLoggedIn, (req,res) => {
     if (req.params.id != 'style.css'){
         db.shareholder.findByPk(
@@ -62,6 +90,10 @@ router.get('/:id', isLoggedIn, (req,res) => {
                     } else {
                         transaction.runningBalance = parseInt(transaction.amount);
                     }
+                })
+                shareholder.transactions.forEach(transaction => {   // format all dollar values as currency strings for display in view
+                    transaction.amount = formatCurrency(transaction.amount);
+                    transaction.runningBalanceString = formatCurrency(transaction.runningBalance); //runningBalance itself must stay a number for QuickChart API, so we create runningBalanceString
                 })
                 //Now construct query string to send to QuickChart API.  This will be a src attribute for an img html element in the view.
                 //Map functions retrieve lists of dates and amounts from shareholder.transactions
@@ -110,6 +142,7 @@ router.get('/', isLoggedIn, (req, res) => {
                         shareholder.transactions.forEach(transaction => { // and finally sum up all shareholder transactions to get their current balance
                             shareholder.balance += parseInt(transaction.amount);
                         })
+                        shareholder.balance = formatCurrency(shareholder.balance);
                     }
                 })
             }

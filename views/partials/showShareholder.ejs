@@ -26,13 +26,13 @@
                     <%= transaction.checkNumber %>
                 </td>
                 <td>
-                    $<%= transaction.amount %>
+                    <%= transaction.amount %>
                 </td>
                 <td>
                     <%= transaction.notes %>
                 </td>
                 <td>
-                    $<%= transaction.runningBalance %>
+                    <%= transaction.runningBalanceString %>
                 </td>
                 <td>
                     <% if (transaction.amount > 0) { %>
