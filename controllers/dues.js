@@ -14,7 +14,7 @@ router.post('/', isLoggedIn, (req,res) => {
     //but for now, this seems like a more error-proof way.  The app will throw a fit in /shareholders if ending dates are earlier than starting ones, as it should
     //but later, I should have it check that here and handle it elegantly, instead of just letting it crash in /shareholders
     db.dues.update(
-        {endDate: req.body.effectiveDate}, 
+        {endDate: req.body.effectiveDate}, // don't worry, this is NOT primarily an update route.  Just need to update some before creating others
         {where: {endDate: null}}
     )
     .then(function(updateResponse){

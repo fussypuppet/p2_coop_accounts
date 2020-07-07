@@ -8,7 +8,7 @@ const ejsLayouts = require('express-ejs-layouts');
 //helmet, morgan, passport, and custom middleware, express-sessions, sequelize sessions, flash
 const helmet = require('helmet');
 const session = require('express-session');
-const flash = require('flash');
+const flash = require('connect-flash');
 const passport = require('./config/ppConfig');
 const db = require('./models');
 const methodOverride = require('method-override');
@@ -52,7 +52,8 @@ app.use(passport.session());
 app.use(flash());
 
 app.use(function(req,res,next){
-    res.locals.alert = req.flash();
+    console.log("☑️☑️☑️☑️☑️Alert triggered");
+    res.locals.alerts = req.flash();
     res.locals.currentUser = req.user;
     next();
 })

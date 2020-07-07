@@ -17,7 +17,7 @@ function fillDuesGaps(inputDuesList){
         }
         let potentialOutputDate = new Date(dbDuesEntry.startDate);
         while (potentialOutputDate < dbDuesEntry.endDate){  // starting with the start date, if the date is before the end date, add it to the output, then add a month and check again etc
-            outputDuesList.push({amount: -(dbDuesEntry.amount), date: potentialOutputDate, category: "dues", checkNumber: ""});
+            outputDuesList.push({amount: -(dbDuesEntry.amount), date: potentialOutputDate, category: "dues charge", checkNumber: ""});
             potentialOutputDate = new Date(potentialOutputDate.getFullYear(), (potentialOutputDate.getMonth() + 1));
         }
     })
