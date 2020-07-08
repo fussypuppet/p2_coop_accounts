@@ -7,7 +7,13 @@ const flash = require('connect-flash');
 const passport = require('../config/ppConfig');
 
 router.get('/register', function(req,res){
-    res.render('auth/register');
+    db.unit.findAll()
+    .then(units => {
+        res.render('auth/register', {units});
+    })
+    .catch(error => {
+        console.log(`Error retrieving units for user registration: ${error}`);
+    })
 })
 
 router.post('/register', function(req,res){
