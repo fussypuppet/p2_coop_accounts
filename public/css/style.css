@@ -18,3 +18,10 @@ body {
 img {
     width: 100%;
 }
+h1, nav {
+    text-align: center;
+}
+
+nav {
+    margin-bottom: 10px;
+}

@@ -81,11 +81,16 @@ router.post('/register', function(req,res){
 })
 
 router.get('/login', function(req,res){
-    res.render("auth/login");
+    if (!req.user){
+        res.render("auth/login");
+    } else {
+        req.flash('message', 'You are already logged in');
+        res.redirect('/shareholders');
+    } 
 })
 
 router.get('/edit', (req, res) => {
-    res.render("./partials/editUser", {thisSession: req.session});
+    res.render("./partials/editUser", {thisSession: req.session, user: req.user});
 })
 
 router.post('/login', function(req,res,next){           // our first use of keyword "next".  This finds next instance of same route pattern and then executes it
@@ -122,7 +127,7 @@ router.post('/login', passport.authenticate('local', {
 }));
 
 router.put('/', function(req,res,next) {
-    console.log("🟣🟣🟣🟣🟣in auth put");
+    console.log("🟣🟣🟣🟣🟣in auth put for user id " + req.user.id);
     passport.authenticate('local', function(error, user, info){
         if (!user){
             console.log("🟣🟣🟣🟣🟣No User");
@@ -136,7 +141,7 @@ router.put('/', function(req,res,next) {
                 password: req.body.newPassword
             }, {
                 where: {
-                    email: req.body.email
+                    id: req.user.id
                 }
             })
             .then(updateResult => {

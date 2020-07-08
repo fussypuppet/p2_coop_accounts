@@ -59,7 +59,7 @@ app.use(function(req,res,next){
 })
 
 app.get('/', (req, res) => {
-    res.render('index');
+    res.redirect('/auth/login');
 })
 
 app.get('/profile', function(req,res){  //2nd argument isLoggedIn?********
