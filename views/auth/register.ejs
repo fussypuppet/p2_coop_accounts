@@ -11,7 +11,7 @@
         <label for="unit">Unit</label>
         <select class="form-control" id="unit" name="unit" required>
             <% units.forEach(unit => { %>
-                <option value="unit.id"><%= unit.number %></option>
+                <option value="<%= unit.id %>"><%= unit.number %></option>
             <% }) %>
         </select>
     </div>

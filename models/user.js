@@ -36,6 +36,9 @@ module.exports = function(sequelize, DataTypes) {
                 }
             }
         },
+        isAdministrator: {
+            type: DataTypes.BOOLEAN
+        },
         shareholderId: {
             type: DataTypes.INTEGER
         }

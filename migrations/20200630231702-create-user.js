@@ -20,6 +20,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      isAdministrator: {
+        type: Sequelize.BOOLEAN
+      },
       shareholderId: {
           type: Sequelize.INTEGER
       },
