@@ -25,6 +25,8 @@ let unit17StartingCheck = 184;
 let unit18StartingCheck = 1054;
 let unit24StartingCheck = 90002041;
 let unit25StartingCheck = 70204894;
+let unit26StartingCheck = 9990043;
+let unit27StartingCheck = 1272;
 
 db.transaction.bulkCreate([
     {
@@ -743,6 +745,12 @@ db.transaction.bulkCreate([
         shareholderId: 1
     },    {
         date: "06/10/2020",
+        amount: 510,
+        checkNumber: unit1StartingCheck++,
+        category: "dues payment",
+        shareholderId: 1
+    },    {
+        date: "07/10/2020",
         amount: 510,
         checkNumber: unit1StartingCheck++,
         category: "dues payment",
@@ -1466,6 +1474,12 @@ db.transaction.bulkCreate([
         checkNumber: unit2StartingCheck++,
         category: "dues payment",
         shareholderId: 2
+    },    {
+        date: "07/10/2020",
+        amount: 510,
+        checkNumber: unit2StartingCheck++,
+        category: "dues payment",
+        shareholderId: 2
     }
 ])
 .then(result => {
@@ -2178,6 +2192,12 @@ db.transaction.bulkCreate([
         checkNumber: unit10StartingCheck++,
         category: "dues payment",
         shareholderId: 20
+    },    {
+        date: "07/10/2020",
+        amount: 510,
+        checkNumber: unit10StartingCheck++,
+        category: "dues payment",
+        shareholderId: 20
     }    
 ])
 .then(result => {
@@ -2861,7 +2881,13 @@ db.transaction.bulkCreate([
         checkNumber: unit11StartingCheck++,
         category: "dues payment",
         shareholderId: 19
-    }    
+    },    {
+        date: "07/10/2020",
+        amount: 510,
+        checkNumber: unit11StartingCheck++,
+        category: "dues payment",
+        shareholderId: 19
+    }     
 ])
 .then(result => {
     console.log("lots of transactions added successfully");
@@ -3592,6 +3618,12 @@ db.transaction.bulkCreate([
         checkNumber: unit19StartingCheck++,
         category: "dues payment",
         shareholderId: 12
+    },    {
+        date: "07/10/2020",
+        amount: 510,
+        checkNumber: unit19StartingCheck++,
+        category: "dues payment",
+        shareholderId: 12
     }    
 ])
 .then(result => {
@@ -4127,6 +4159,12 @@ db.transaction.bulkCreate([
         shareholderId: 11
     },    {
         date: "06/10/2020",
+        amount: 510,
+        checkNumber: unit20StartingCheck++,
+        category: "dues payment",
+        shareholderId: 11
+    },    {
+        date: "07/10/2020",
         amount: 510,
         checkNumber: unit20StartingCheck++,
         category: "dues payment",
@@ -4880,6 +4918,12 @@ db.transaction.bulkCreate([
         checkNumber: unit28StartingCheck++,
         category: "dues payment",
         shareholderId: 4
+    },    {
+        date: "07/10/2020",
+        amount: 510,
+        checkNumber: unit28StartingCheck++,
+        category: "dues payment",
+        shareholderId: 4
     }    
 ])
 .then(result => {
@@ -5551,6 +5595,12 @@ db.transaction.bulkCreate([
         checkNumber: unit29StartingCheck++,
         category: "dues payment",
         shareholderId: 3
+    },    {
+        date: "07/10/2020",
+        amount: 510,
+        checkNumber: unit29StartingCheck++,
+        category: "dues payment",
+        shareholderId: 3
     }    
 ])
 .then(result => {
@@ -6012,6 +6062,12 @@ db.transaction.bulkCreate([
         checkNumber: unit4StartingCheck++,
         category: "dues payment",
         shareholderId: 26
+    },    {
+        date: "07/10/2020",
+        amount: 570,
+        checkNumber: unit4StartingCheck++,
+        category: "dues payment",
+        shareholderId: 26
     }    
 ])
 .then(result => {
@@ -6343,6 +6399,12 @@ db.transaction.bulkCreate([
         shareholderId: 25
     },    {
         date: "06/10/2020",
+        amount: 570,
+        checkNumber: unit5StartingCheck++,
+        category: "dues payment",
+        shareholderId: 25
+    },    {
+        date: "07/10/2020",
         amount: 570,
         checkNumber: unit5StartingCheck++,
         category: "dues payment",
@@ -7092,6 +7154,12 @@ db.transaction.bulkCreate([
         shareholderId: 18
     },    {
         date: "06/10/2020",
+        amount: 570,
+        checkNumber: unit12StartingCheck++,
+        category: "dues payment",
+        shareholderId: 18
+    },    {
+        date: "07/10/2020",
         amount: 570,
         checkNumber: unit12StartingCheck++,
         category: "dues payment",
@@ -7845,6 +7913,12 @@ db.transaction.bulkCreate([
         checkNumber: unit14StartingCheck++,
         category: "dues payment",
         shareholderId: 17
+    },    {
+        date: "07/10/2020",
+        amount: 570,
+        checkNumber: unit14StartingCheck++,
+        category: "dues payment",
+        shareholderId: 17
     }    
 ])
 .then(result => {
@@ -8590,6 +8664,12 @@ db.transaction.bulkCreate([
         shareholderId: 10
     },    {
         date: "06/10/2020",
+        amount: 570,
+        checkNumber: unit21StartingCheck++,
+        category: "dues payment",
+        shareholderId: 10
+    },    {
+        date: "07/10/2020",
         amount: 570,
         checkNumber: unit21StartingCheck++,
         category: "dues payment",
@@ -9462,6 +9542,12 @@ db.transaction.bulkCreate([
         checkNumber: unit3StartingCheck++,
         category: "dues payment",
         shareholderId: 27
+    },    {
+        date: "07/10/2020",
+        amount: 430,
+        checkNumber: unit3StartingCheck++,
+        category: "dues payment",
+        shareholderId: 27
     }    
 ])
 .then(result => {
@@ -9473,205 +9559,211 @@ db.transaction.bulkCreate([
 
 
 db.transaction.bulkCreate([
-{
-    date: "10/10/2017",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "11/10/2017",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "01/10/2018",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "01/10/2018",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "02/10/2018",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "03/10/2018",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "04/10/2018",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "05/10/2018",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "06/10/2018",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "07/10/2018",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "08/10/2018",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "09/10/2018",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "10/10/2018",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "11/10/2018",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "12/10/2018",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "01/10/2019",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "02/10/2019",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "03/10/2019",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "04/10/2019",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "05/10/2019",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "06/10/2019",
-    amount: 395,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "07/10/2019",
-    amount: 535,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "08/10/2019",
-    amount: 430,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "09/10/2019",
-    amount: 430,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "10/10/2019",
-    amount: 430,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "11/10/2019",
-    amount: 430,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "12/10/2019",
-    amount: 430,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "01/10/2020",
-    amount: 430,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "02/10/2020",
-    amount: 430,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "03/10/2020",
-    amount: 430,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "04/10/2020",
-    amount: 430,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "05/10/2020",
-    amount: 430,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-},    {
-    date: "06/10/2020",
-    amount: 430,
-    checkNumber: unit6StartingCheck++,
-    category: "dues payment",
-    shareholderId: 24
-}    
+    {
+        date: "10/10/2017",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "11/10/2017",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "01/10/2018",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "01/10/2018",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "02/10/2018",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "03/10/2018",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "04/10/2018",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "05/10/2018",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "06/10/2018",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "07/10/2018",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "08/10/2018",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "09/10/2018",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "10/10/2018",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "11/10/2018",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "12/10/2018",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "01/10/2019",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "02/10/2019",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "03/10/2019",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "04/10/2019",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "05/10/2019",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "06/10/2019",
+        amount: 395,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "07/10/2019",
+        amount: 535,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "08/10/2019",
+        amount: 430,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "09/10/2019",
+        amount: 430,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "10/10/2019",
+        amount: 430,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "11/10/2019",
+        amount: 430,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "12/10/2019",
+        amount: 430,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "01/10/2020",
+        amount: 430,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "02/10/2020",
+        amount: 430,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "03/10/2020",
+        amount: 430,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "04/10/2020",
+        amount: 430,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "05/10/2020",
+        amount: 430,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "06/10/2020",
+        amount: 430,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    },    {
+        date: "07/10/2020",
+        amount: 430,
+        checkNumber: unit6StartingCheck++,
+        category: "dues payment",
+        shareholderId: 24
+    }    
 ])
 .then(result => {
 console.log("lots of transactions added successfully");
@@ -10420,6 +10512,12 @@ db.transaction.bulkCreate([
         checkNumber: unit7StartingCheck++,
         category: "dues payment",
         shareholderId: 23
+    },    {
+        date: "07/10/2020",
+        amount: 430,
+        checkNumber: unit7StartingCheck++,
+        category: "dues payment",
+        shareholderId: 23
     }    
 ])
 .then(result => {
@@ -11169,6 +11267,12 @@ db.transaction.bulkCreate([
         checkNumber: unit8StartingCheck++,
         category: "dues payment",
         shareholderId: 22
+    },    {
+        date: "07/10/2020",
+        amount: 430,
+        checkNumber: unit8StartingCheck++,
+        category: "dues payment",
+        shareholderId: 22
     }    
 ])
 .then(result => {
@@ -11644,6 +11748,12 @@ db.transaction.bulkCreate([
         shareholderId:21
     },    {
         date: "05/10/2020",
+        amount: 430,
+        checkNumber: unit9StartingCheck++,
+        category: "dues payment",
+        shareholderId:21
+    },    {
+        date: "07/10/2020",
         amount: 430,
         checkNumber: unit9StartingCheck++,
         category: "dues payment",
@@ -12091,6 +12201,12 @@ db.transaction.bulkCreate([
         checkNumber: unit15StartingCheck++,
         category: "dues payment",
         shareholderId: 16
+    },    {
+        date: "07/10/2020",
+        amount: 430,
+        checkNumber: unit15StartingCheck++,
+        category: "dues payment",
+        shareholderId: 16
     }    
 ])
 .then(result => {
@@ -12840,6 +12956,12 @@ db.transaction.bulkCreate([
         checkNumber: unit16StartingCheck++,
         category: "dues payment",
         shareholderId: 15
+    },    {
+        date: "07/10/2020",
+        amount: 430,
+        checkNumber: unit16StartingCheck++,
+        category: "dues payment",
+        shareholderId: 15
     }    
 ])
 .then(result => {
@@ -13589,6 +13711,12 @@ db.transaction.bulkCreate([
         checkNumber: unit17StartingCheck++,
         category: "dues payment",
         shareholderId: 14
+    },    {
+        date: "07/10/2020",
+        amount: 430,
+        checkNumber: unit17StartingCheck++,
+        category: "dues payment",
+        shareholderId: 14
     }    
 ])
 .then(result => {
@@ -15087,6 +15215,12 @@ db.transaction.bulkCreate([
         checkNumber: unit24StartingCheck++,
         category: "dues payment",
         shareholderId: 8
+    },    {
+        date: "07/10/2020",
+        amount: 430,
+        checkNumber: unit24StartingCheck++,
+        category: "dues payment",
+        shareholderId: 8
     }    
 ])
 .then(result => {
@@ -15836,7 +15970,1445 @@ db.transaction.bulkCreate([
         checkNumber: unit25StartingCheck++,
         category: "dues payment",
         shareholderId: 7
+    }   
+])
+.then(result => {
+    console.log("lots of transactions added successfully");
+})
+.catch(error => {
+    console.log(`Error seeding transactions: ${error}`);
+})
+
+
+db.transaction.bulkCreate([
+    {
+        date: "04/10/2010",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "05/10/2010",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "06/10/2010",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "07/10/2010",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "08/10/2010",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "09/10/2010",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "10/10/2010",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "11/10/2010",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "12/10/2010",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "01/10/2011",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "02/10/2011",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "03/10/2011",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "04/10/2011",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "05/10/2011",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "06/10/2011",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "07/10/2011",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "08/10/2011",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "09/10/2011",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "10/10/2011",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "11/10/2011",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "12/10/2011",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "01/10/2012",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "02/10/2012",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "03/10/2012",
+        amount: 300,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "04/10/2012",
+        amount: 320,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "05/10/2012",
+        amount: 320,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "06/10/2012",
+        amount: 320,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "07/10/2012",
+        amount: 320,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "08/10/2012",
+        amount: 320,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "09/10/2012",
+        amount: 320,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "10/10/2012",
+        amount: 320,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "11/10/2012",
+        amount: 320,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "12/10/2012",
+        amount: 320,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "01/10/2013",
+        amount: 320,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "02/10/2013",
+        amount: 320,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "03/10/2013",
+        amount: 320,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "04/10/2013",
+        amount: 325,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "05/10/2013",
+        amount: 325,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "06/10/2013",
+        amount: 325,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "07/10/2013",
+        amount: 325,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "08/10/2013",
+        amount: 325,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "09/10/2013",
+        amount: 325,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "10/10/2013",
+        amount: 325,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "11/10/2013",
+        amount: 325,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "12/10/2013",
+        amount: 325,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "01/10/2014",
+        amount: 325,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "02/10/2014",
+        amount: 325,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "03/10/2014",
+        amount: 325,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "04/10/2014",
+        amount: 345,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "05/10/2014",
+        amount: 345,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "06/10/2014",
+        amount: 345,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "07/10/2014",
+        amount: 345,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "08/10/2014",
+        amount: 345,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "09/10/2014",
+        amount: 345,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "10/10/2014",
+        amount: 345,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "11/10/2014",
+        amount: 345,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "12/10/2014",
+        amount: 345,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "01/10/2015",
+        amount: 345,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "02/10/2015",
+        amount: 345,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "03/10/2015",
+        amount: 345,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "04/10/2015",
+        amount: 355,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "05/10/2015",
+        amount: 355,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "06/10/2015",
+        amount: 355,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "07/10/2015",
+        amount: 355,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "08/10/2015",
+        amount: 355,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "09/10/2015",
+        amount: 355,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "10/10/2015",
+        amount: 355,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "11/10/2015",
+        amount: 355,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "12/10/2015",
+        amount: 355,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "01/10/2016",
+        amount: 375,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "02/10/2016",
+        amount: 375,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "03/10/2016",
+        amount: 375,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "04/10/2016",
+        amount: 375,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "05/10/2016",
+        amount: 375,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "06/10/2016",
+        amount: 375,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "07/10/2016",
+        amount: 375,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "08/10/2016",
+        amount: 375,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "09/10/2016",
+        amount: 375,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "10/10/2016",
+        amount: 375,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "11/10/2016",
+        amount: 375,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "12/10/2016",
+        amount: 375,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "01/10/2017",
+        amount: 375,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "02/10/2017",
+        amount: 375,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "03/10/2017",
+        amount: 375,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "04/10/2017",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "05/10/2017",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "06/10/2017",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "07/10/2017",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "08/10/2017",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "09/10/2017",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "10/10/2017",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "11/10/2017",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "12/10/2017",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "01/10/2018",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "02/10/2018",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "03/10/2018",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "04/10/2018",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "05/10/2018",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "06/10/2018",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "07/10/2018",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "08/10/2018",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "09/10/2018",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "10/10/2018",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "11/10/2018",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "12/10/2018",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "01/10/2019",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "02/10/2019",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "03/10/2019",
+        amount: 395,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "04/10/2019",
+        amount: 430,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "05/10/2019",
+        amount: 430,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "06/10/2019",
+        amount: 430,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "07/10/2019",
+        amount: 430,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "08/10/2019",
+        amount: 430,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "09/10/2019",
+        amount: 430,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "10/10/2019",
+        amount: 430,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "11/10/2019",
+        amount: 430,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "12/10/2019",
+        amount: 430,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "01/10/2020",
+        amount: 430,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "02/10/2020",
+        amount: 430,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "03/10/2020",
+        amount: 430,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "04/10/2020",
+        amount: 430,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "05/10/2020",
+        amount: 430,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "06/10/2020",
+        amount: 430,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
+    },    {
+        date: "07/10/2020",
+        amount: 430,
+        checkNumber: unit26StartingCheck++,
+        category: "dues payment",
+        shareholderId: 6
     }    
+])
+.then(result => {
+    console.log("lots of transactions added successfully");
+})
+.catch(error => {
+    console.log(`Error seeding transactions: ${error}`);
+})
+
+
+db.transaction.bulkCreate([
+    {
+        date: "04/10/2011",
+        amount: 300,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "05/10/2011",
+        amount: 300,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "06/10/2011",
+        amount: 300,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "07/10/2011",
+        amount: 300,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "08/10/2011",
+        amount: 300,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "09/10/2011",
+        amount: 300,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "10/10/2011",
+        amount: 300,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "11/10/2011",
+        amount: 300,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "12/10/2011",
+        amount: 300,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "01/10/2012",
+        amount: 300,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "02/10/2012",
+        amount: 300,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "03/10/2012",
+        amount: 300,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "04/10/2012",
+        amount: 320,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "05/10/2012",
+        amount: 320,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "06/10/2012",
+        amount: 320,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "07/10/2012",
+        amount: 320,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "08/10/2012",
+        amount: 320,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "09/10/2012",
+        amount: 320,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "10/10/2012",
+        amount: 320,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "11/10/2012",
+        amount: 320,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "12/10/2012",
+        amount: 320,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "01/10/2013",
+        amount: 320,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "02/10/2013",
+        amount: 320,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "03/10/2013",
+        amount: 320,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "04/10/2013",
+        amount: 325,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "05/10/2013",
+        amount: 325,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "06/10/2013",
+        amount: 325,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "07/10/2013",
+        amount: 325,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "08/10/2013",
+        amount: 325,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "09/10/2013",
+        amount: 325,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "10/10/2013",
+        amount: 325,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "11/10/2013",
+        amount: 325,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "12/10/2013",
+        amount: 325,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "01/10/2014",
+        amount: 325,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "02/10/2014",
+        amount: 325,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "03/10/2014",
+        amount: 325,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "04/10/2014",
+        amount: 345,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "05/10/2014",
+        amount: 345,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "06/10/2014",
+        amount: 345,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "07/10/2014",
+        amount: 345,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "08/10/2014",
+        amount: 345,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "09/10/2014",
+        amount: 345,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "10/10/2014",
+        amount: 345,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "11/10/2014",
+        amount: 345,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "12/10/2014",
+        amount: 345,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "01/10/2015",
+        amount: 345,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "02/10/2015",
+        amount: 345,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "03/10/2015",
+        amount: 345,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "04/10/2015",
+        amount: 355,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "05/10/2015",
+        amount: 355,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "06/10/2015",
+        amount: 355,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "07/10/2015",
+        amount: 355,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "08/10/2015",
+        amount: 355,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "09/10/2015",
+        amount: 355,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "10/10/2015",
+        amount: 355,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "11/10/2015",
+        amount: 355,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "12/10/2015",
+        amount: 355,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "01/10/2016",
+        amount: 375,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "02/10/2016",
+        amount: 375,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "03/10/2016",
+        amount: 375,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "04/10/2016",
+        amount: 375,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "05/10/2016",
+        amount: 375,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "06/10/2016",
+        amount: 375,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "07/10/2016",
+        amount: 375,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "08/10/2016",
+        amount: 375,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "09/10/2016",
+        amount: 375,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "10/10/2016",
+        amount: 375,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "11/10/2016",
+        amount: 375,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "12/10/2016",
+        amount: 375,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "01/10/2017",
+        amount: 375,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "02/10/2017",
+        amount: 375,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "03/10/2017",
+        amount: 375,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "04/10/2017",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "05/10/2017",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "06/10/2017",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "07/10/2017",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "08/10/2017",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "09/10/2017",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "10/10/2017",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "11/10/2017",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "12/10/2017",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "01/10/2018",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "02/10/2018",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "03/10/2018",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "04/10/2018",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "05/10/2018",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "06/10/2018",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "07/10/2018",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "08/10/2018",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "09/10/2018",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "10/10/2018",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "11/10/2018",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "12/10/2018",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "01/10/2019",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "02/10/2019",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "03/10/2019",
+        amount: 395,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "04/10/2019",
+        amount: 430,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "05/10/2019",
+        amount: 430,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "06/10/2019",
+        amount: 430,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "07/10/2019",
+        amount: 430,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "08/10/2019",
+        amount: 430,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "09/10/2019",
+        amount: 430,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "10/10/2019",
+        amount: 430,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "11/10/2019",
+        amount: 430,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "12/10/2019",
+        amount: 430,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "01/10/2020",
+        amount: 430,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "02/10/2020",
+        amount: 430,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "03/10/2020",
+        amount: 430,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "04/10/2020",
+        amount: 430,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "05/10/2020",
+        amount: 430,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "06/10/2020",
+        amount: 430,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    },    {
+        date: "07/10/2020",
+        amount: 430,
+        checkNumber: unit27StartingCheck++,
+        category: "dues payment",
+        shareholderId: 5
+    }   
 ])
 .then(result => {
     console.log("lots of transactions added successfully");
