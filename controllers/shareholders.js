@@ -40,18 +40,12 @@ function formatCurrency(inputInteger){ // accepts an integer and return a curren
     function putCommas(inputString, outputString){ 
         // accepts a string of a positive number, and an incomplete output string from previous recursions and returns a full output string
         if (outputString.charAt(outputString.length-1) != "$"){ outputString += ",";} // If the output string ends in numbers, add a comma
-        console.log("done adding any necessary commas: " + outputString);
         let digitsToCrop = inputString.length%3 ? inputString.length%3 : 3; // figure out how many digits to crop off the front of the input string
-        console.log("digits to crop from " + inputString + ", number to crop: " + digitsToCrop);
         outputString += inputString.slice(0, digitsToCrop);  // add those digits to the growing output string
-        console.log("added to output string: " + outputString);
         inputString = inputString.slice(digitsToCrop);  // remove them from the input string
-        console.log("cropped from input string: " + inputString);
         if (inputString){
-            console.log("input string is length " + inputString.length + "and is true");
             return putCommas(inputString, outputString);  // if the input string has digits left, recurse.  Otherwise return output string.
         } else {
-            console.log("returning " + outputString);
             return outputString;
         }
     }
@@ -101,7 +95,7 @@ router.get('/:id', isLoggedIn, (req,res) => {
                 //we'll construct the map in chunks to avoid having an extremely long line of code
                 let graphImgSrc = `https://quickchart.io/chart?c={type:%27line%27,data:{labels:${JSON.stringify(theseDates)}` // axis labels
                 graphImgSrc = graphImgSrc + `,datasets:[{label:%27Running%20Balance%27,data:${JSON.stringify(shareholder.transactions.map(transaction => transaction.runningBalance))}` // chart data
-                graphImgSrc = graphImgSrc + `,borderWidth:0.5,pointRadius:0,fill:false,borderColor:%27red%27}]}}`; // chart styling options
+                graphImgSrc = graphImgSrc + `,borderWidth:0.5,pointRadius:0,fill:false,borderColor:%27blue%27}]}}`; // chart styling options
                 res.render('./partials/showShareholder', {shareholder, graphImgSrc});
             })
         })

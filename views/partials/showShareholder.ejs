@@ -35,7 +35,7 @@
                     <%= transaction.runningBalanceString %>
                 </td>
                 <td>
-                    <% if (transaction.amount > 0) { %>
+                    <% if (transaction.category.includes("payment")) { %>
                         <button class="btn btn-secondary" onclick="<%= `window.location.href='/transactions/edit/${transaction.id}'` %>">Edit</button>
                         <form class="delete" method="POST" action="<%= `/transactions/delete/${transaction.id}?_method=DELETE` %>">
                             <input class="btn btn-secondary" type='submit' value="Delete">
