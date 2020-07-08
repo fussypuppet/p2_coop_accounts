@@ -104,7 +104,11 @@ router.post('/login', function(req,res,next){           // our first use of keyw
             if (error) next(error);  // ooh fancy single-line if statement!
             req.flash('success!', 'You are validated and logged in');
             req.session.save(function(){
-                return res.redirect('/shareholders');
+                if (req.user.isAdministrator){
+                    return res.redirect('/shareholders');
+                } else {
+                    return res.redirect(`/shareholders/${req.user.shareholderId}`);
+                }
             })
         })
     })(req, res, next);
@@ -155,7 +159,7 @@ router.put('/login', passport.authenticate('local', {
     failureFlash: 'Invalid username or password'
 }));
 
-router.get('/logout', isLoggedIn, function(req,res){
+router.get('/logout', function(req,res){
     req.logout();
     res.redirect('/');
 })

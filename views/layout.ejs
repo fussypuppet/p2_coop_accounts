@@ -12,11 +12,15 @@
     <header class="container">
         <h1>Coop Accounts</h1>
         <nav>
-                <% if (currentUser) { %>
+                <% if (currentUser && currentUser.isAdministrator) { %>
                     <a href="/auth/logout">Logout</a> | 
                     <a href="/shareholders">Shareholders Index</a> | 
                     <a href="/dues/new">Update Dues</a> | 
                     <a href="/transactions/new">New Transaction</a> | 
+                    <a href="/auth/edit">Change Password</a>
+                <% } else if (currentUser) { %>
+                    <a href="/auth/logout">Logout</a> | 
+                    <a href="<%= `/shareholders/${currentUser.shareholderId}` %>">My Account</a> | 
                     <a href="/auth/edit">Change Password</a>
                 <% } else { %>
                     <a href="/auth/register">Register</a> | 
