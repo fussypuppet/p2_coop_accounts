@@ -42,5 +42,13 @@ nav {
 }
 
 .flash_message {
-    background-color: green;
+    background-color: blue;
+}
+
+.red {
+    color: #992200;
+}
+
+.blue {
+    color: #004477;
 }

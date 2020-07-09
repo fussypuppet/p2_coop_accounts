@@ -20,7 +20,7 @@
                     <a href="/auth/edit">Change Password</a>
                 <% } else if (currentUser) { %>
                     <a href="/auth/logout">Logout</a>&nbsp&nbsp&nbsp&nbsp| &nbsp&nbsp&nbsp&nbsp
-                    <a href="<%= `/shareholders/${currentUser.shareholderId}` %>">My Account</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp
+                    <a href="<%= `/shareholders/${currentUser.shareholderId}?years=2` %>">My Account</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp
                     <a href="/auth/edit">Change Password</a>
                 <% } else { %>
                     <a href="/auth/register">Register</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp 

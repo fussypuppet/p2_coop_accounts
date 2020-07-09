@@ -34,15 +34,27 @@
                 <td>
                     <%= transaction.checkNumber %>
                 </td>
-                <td>
-                    <%= transaction.amount %>
-                </td>
+                <% if (transaction.amount.charAt(0) === "-"){ %>
+                    <td class="red">
+                        <%= transaction.amount %>
+                    </td>
+                <% } else { %>
+                    <td class="blue">
+                        <%= transaction.amount %>
+                    </td>
+                <% } %>
                 <td>
                     <%= transaction.notes %>
                 </td>
-                <td>
-                    <%= transaction.runningBalance %>
-                </td>
+                <% if (transaction.runningBalance.charAt(0) === "-"){ %>
+                    <td class="red">
+                        <%= transaction.runningBalance %>
+                    </td>
+                <% } else { %>
+                    <td class="blue">
+                        <%= transaction.runningBalance %>
+                    </td>
+                <% } %>
                 <td>
                     <% if (transaction.category.includes("payment")) { %>
                         <button class="btn btn-secondary" onclick="<%= `window.location.href='/transactions/edit/${transaction.id}'` %>">Edit</button>

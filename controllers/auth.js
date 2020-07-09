@@ -109,7 +109,7 @@ router.post('/login', function(req,res,next){           // our first use of keyw
                 if (req.user.isAdministrator){
                     return res.redirect('/shareholders');
                 } else {
-                    return res.redirect(`/shareholders/${req.user.shareholderId}`);
+                    return res.redirect(`/shareholders/${req.user.shareholderId}?years=2`);
                 }
             })
         })
