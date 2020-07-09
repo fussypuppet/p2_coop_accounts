@@ -4,7 +4,7 @@ const isLoggedIn = require('../middleware/isLoggedIn');
 const router = express.Router();
 
 router.get('/new', (req,res) => {
-    res.render('./partials/newDues');
+    res.render('./dues/newDues');
 })
 
 //REFACTOR LATER TO IMPLEMENT BEST PRACTICE IN PARSING STRINGS TO DATES

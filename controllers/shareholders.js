@@ -106,7 +106,7 @@ router.get('/:id', isLoggedIn, (req,res) => {
                 let graphImgSrc = `https://quickchart.io/chart?height=250&c={type:%27line%27,data:{labels:${JSON.stringify(theseDates)}` // axis labels
                 graphImgSrc = graphImgSrc + `,datasets:[{label:%27Running%20Balance%27,data:${JSON.stringify(chartData.map(dataPoint => dataPoint.runningBalance))}` // chart data
                 graphImgSrc = graphImgSrc + `,borderWidth:0.5,pointRadius:0,fill:false,borderColor:%27blue%27}]}}`; // chart styling options
-                res.render('./partials/showShareholder', {shareholder, graphImgSrc, years: req.query.years});
+                res.render('./shareholders/showShareholder', {shareholder, graphImgSrc, years: req.query.years});
             })
         })
         .catch(error => {
@@ -150,14 +150,14 @@ router.get('/', isLoggedIn, (req, res) => {
                     }
                 })
             }
-            res.render('./partials/shareholders', {shareholdersList: shareholdersList, error: null});
+            res.render('./shareholders/shareholdersIndex', {shareholdersList: shareholdersList, error: null});
         })
         .catch(duesError => {
             console.log(`💋💋💋 Error retrieving dues: ${duesError}`);
         })
     }).catch(error => {
         console.log("Sending shareholder findAll error to ejs 💋")
-        res.render('./partials/shareholders', {shareholdersList: null, error: error});
+        res.render('./shareholders/shareholdersIndex', {shareholdersList: null, error: error});
     })
 })
 

@@ -8,7 +8,7 @@ const flash = require('connect-flash');
 router.get('/new', isLoggedIn, (req,res) => {
     db.shareholder.findAll()
     .then(shareholderList => {
-        res.render('./partials/newTransaction', {shareholderList: shareholderList});
+        res.render('./transactions/newTransaction', {shareholderList: shareholderList});
     })
     .catch(error => {
         console.log(`🧿🧿🧿Error: ${error}`)
@@ -20,7 +20,7 @@ router.get("/edit/:id", isLoggedIn, (req,res) => {
     .then(transaction => {
         db.shareholder.findAll()
         .then(shareholdersList => {
-            res.render('./partials/editTransaction', {transaction: transaction, shareholdersList: shareholdersList});
+            res.render('./transactions/editTransaction', {transaction: transaction, shareholdersList: shareholdersList});
         })
         .catch(error => {
             console.log(`Error in edit transaction method while retrieving shareholder list: ${JSON.stringify(error)}`);

@@ -90,7 +90,7 @@ router.get('/login', function(req,res){
 })
 
 router.get('/edit', (req, res) => {
-    res.render("./partials/editUser", {thisSession: req.session, user: req.user});
+    res.render("./auth/editUser", {thisSession: req.session, user: req.user});
 })
 
 router.post('/login', function(req,res,next){           // our first use of keyword "next".  This finds next instance of same route pattern and then executes it
