@@ -13,17 +13,17 @@
         <h1>Coop Accounts</h1>
         <nav>
                 <% if (currentUser && currentUser.isAdministrator) { %>
-                    <a href="/auth/logout">Log out</a> | 
-                    <a href="/shareholders">Shareholders Index</a> | 
-                    <a href="/dues/new">Update Dues</a> | 
-                    <a href="/transactions/new">New Transaction</a> | 
+                    <a href="/auth/logout">Log out</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp 
+                    <a href="/shareholders">Shareholders Index</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp
+                    <a href="/dues/new">Update Dues</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp 
+                    <a href="/transactions/new">New Transaction</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp 
                     <a href="/auth/edit">Change Password</a>
                 <% } else if (currentUser) { %>
-                    <a href="/auth/logout">Logout</a> | 
-                    <a href="<%= `/shareholders/${currentUser.shareholderId}` %>">My Account</a> | 
+                    <a href="/auth/logout">Logout</a>&nbsp&nbsp&nbsp&nbsp| &nbsp&nbsp&nbsp&nbsp
+                    <a href="<%= `/shareholders/${currentUser.shareholderId}` %>">My Account</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp
                     <a href="/auth/edit">Change Password</a>
                 <% } else { %>
-                    <a href="/auth/register">Register</a> | 
+                    <a href="/auth/register">Register</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp 
                     <a href="/auth/login">Login</a>
                 <% } %>
         </nav>

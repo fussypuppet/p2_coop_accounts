@@ -47,17 +47,13 @@ module.exports = function(sequelize, DataTypes) {
     // hook - way of saying I want to grab data as it's coming in and do something to it before it moves on
         hooks: {
             beforeBulkUpdate: function(updatedUser, options){
-                //console.log("🟧🟧🟧🟧🟧 In beforeUpdate hook" + JSON.stringify(updatedUser));
                 if (updatedUser && updatedUser.attributes.password){
-                    //console.log("🟧🟧🟧🟧🟧 In update hook if statement with updatedUser " + JSON.stringify(updatedUser) + " and updatedUser.where " + JSON.stringify(updatedUser.attributes));
                     let hash = bcrypt.hashSync(updatedUser.attributes.password, 12)
                     updatedUser.attributes.password = hash;
-                    //console.log("🟧🟧🟧🟧🟧 Finished hasing of password: " + JSON.stringify(updatedUser.attributes.password));
                 }
             },
             //hash user-inputted pw before record creation
             beforeCreate: function(createdUser, options){  // cannot use arrow functions here since 'this' keyword is used behind the scenes
-                console.log("🟧🟧🟧🟧🟧 In beforeCreate hook");
                 if (createdUser && createdUser.password){
                     let hash = bcrypt.hashSync(createdUser.password, 12) // can pass it a salt(string) or 'rounds', a number of times to run the hash function
                     createdUser.password = hash;

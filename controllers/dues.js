@@ -36,6 +36,7 @@ router.post('/', isLoggedIn, (req,res) => {
         db.dues.bulkCreate(newDuesList)
         //also need to add ending date to previous dues amounts (i.e. any that are null in their endDate field);
         .then(function(creationResponse){
+            req.flash('success', "Dues updated");
             res.redirect('/shareholders');
         })
         .catch(function(createError){

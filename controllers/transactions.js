@@ -3,6 +3,7 @@ const db = require('../models');
 const { route } = require('./auth');
 const isLoggedIn = require('../middleware/isLoggedIn');
 const router = express.Router();
+const flash = require('connect-flash');
 
 router.get('/new', isLoggedIn, (req,res) => {
     db.shareholder.findAll()
@@ -43,7 +44,8 @@ router.put("/edit/:id", isLoggedIn, (req, res) => {
     }, { where: {id: req.params.id}
     })
     .then(updateResult => {
-        res.redirect(`/shareholders/${req.body.shareholder}`);
+        req.flash('success', "Transaction updated");
+        res.redirect(`/shareholders/${req.body.shareholder}?years=2`);
     })
     .catch(error => {
         console.log(`🔴🔴🔴 Error in transaction update method: ${JSON.stringify(error)}`);
@@ -57,6 +59,7 @@ router.delete("/delete/:id", isLoggedIn, (req, res) => {
         }
     })
     .then(destroyResult => {
+        req.flash('success', "Transaction deleted");
         res.redirect(`/shareholders`);
     }).catch(error => {
         console.log(`🔺🔺🔺🔺 Error in delete method: ${JSON.stringify(error)}`);
@@ -82,11 +85,11 @@ router.post('/', (req,res) => {
         shareholderId: req.body.shareholder
     })
     .then(createResponse => {
-        console.log(`🔮🔮🔮 Transaction created: ${JSON.stringify(createResponse)}`);
+        req.flash('success', "Transaction created");
+        res.redirect(`/shareholders/${req.body.shareholder}?years=2`);
     }).catch(error => {
         console.log(`🩸🩸🩸Error creating transaction: ${JSON.stringify(error)}`);
     })
-    res.redirect(`/shareholders/${req.body.shareholder}`);
 })
 
 module.exports = router;

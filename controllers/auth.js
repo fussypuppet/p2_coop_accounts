@@ -84,7 +84,7 @@ router.get('/login', function(req,res){
     if (!req.user){
         res.render("auth/login");
     } else {
-        req.flash('message', 'You are already logged in');
+        req.flash('success', 'You are already logged in');
         res.redirect('/shareholders');
     } 
 })
@@ -107,7 +107,7 @@ router.post('/login', function(req,res,next){           // our first use of keyw
         }
         req.login(user, function(error ){
             if (error) next(error);  // ooh fancy single-line if statement!
-            req.flash('success!', 'You are validated and logged in');
+            req.flash('success', `Login successful. Welcome ${req.user.name}!`);
             req.session.save(function(){
                 if (req.user.isAdministrator){
                     return res.redirect('/shareholders');
@@ -127,15 +127,12 @@ router.post('/login', passport.authenticate('local', {
 }));
 
 router.put('/', function(req,res,next) {
-    console.log("🟣🟣🟣🟣🟣in auth put for user id " + req.user.id);
     passport.authenticate('local', function(error, user, info){
         if (!user){
-            console.log("🟣🟣🟣🟣🟣No User");
             return res.redirect('/auth/edit');
         } else if (error) {
             console.log("🟣🟣🟣🟣🟣🟣Authentication error in user update route");
         } else {
-            console.log("🟣🟣🟣🟣🟣Authentication successful.  About to update user");
             db.user.update({
                 name: req.body.name,
                 password: req.body.newPassword
@@ -145,16 +142,14 @@ router.put('/', function(req,res,next) {
                 }
             })
             .then(updateResult => {
-                console.log("🟣🟣🟣🟣🟣User update successful.  About to redirect to login page");
+                req.flash('success', "User information updated");
                 return res.redirect('/auth/logout');
             })
             .catch(error => {
                 console.log("🟣🟣🟣🟣🟣User update error");
             })
         }
-        console.log("🟣🟣🟣🟣🟣Passport authenticate if statement finished without redirecting anywhere");
     })(req,res,next);
-    console.log("🟣🟣🟣🟣🟣 passport.authenticate finished");
 })
 
 router.put('/login', passport.authenticate('local', {
