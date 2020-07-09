@@ -62,9 +62,6 @@ app.get('/', (req, res) => {
     res.redirect('/auth/login');
 })
 
-app.get('/profile', function(req,res){  //2nd argument isLoggedIn?********
-    res.render('profile', {test: "another test"});
-})
 
 //include outside controllers
 app.use('/auth', require('./controllers/auth')); // use the auth.js file in the auth folder when dealing with auth routes)

@@ -150,14 +150,14 @@ router.get('/', isLoggedIn, (req, res) => {
                     }
                 })
             }
-            res.render('./shareholders/shareholdersIndex', {shareholdersList: shareholdersList, error: null});
+            res.render('./shareholders/index', {shareholdersList: shareholdersList, error: null});
         })
         .catch(duesError => {
             console.log(`💋💋💋 Error retrieving dues: ${duesError}`);
         })
     }).catch(error => {
         console.log("Sending shareholder findAll error to ejs 💋")
-        res.render('./shareholders/shareholdersIndex', {shareholdersList: null, error: error});
+        res.render('./shareholders/index', {shareholdersList: null, error: error});
     })
 })
 
