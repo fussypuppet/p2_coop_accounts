@@ -125,7 +125,10 @@ router.get('/', isLoggedIn, (req, res) => {
     //end goal:  render a chart of shareholder names, their units, and their current balance
     //first, retrieve all shareholders and their unit numbers
     db.shareholder.findAll({
-        include: [db.unit, db.transaction],
+        include: [
+            db.unit, 
+            {model: db.transaction, attributes: ['amount']}
+        ],
         order: sequelize.col('unit.number')
     })
     .then(shareholdersList => {

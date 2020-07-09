@@ -3,7 +3,7 @@ const db = require('../models');
 const isLoggedIn = require('../middleware/isLoggedIn');
 const router = express.Router();
 
-router.get('/new', (req,res) => {
+router.get('/new', isLoggedIn, (req,res) => {
     res.render('./dues/newDues');
 })
 

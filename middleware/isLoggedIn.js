@@ -8,6 +8,6 @@ module.exports = function(req,res,next){
             req.flash('error', "you are not authorized to view that page");
             res.redirect(`/shareholders/${req.user.shareholderId}`);
         }
-        next();
     }
+    next();
 }
