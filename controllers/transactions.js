@@ -60,7 +60,7 @@ router.delete("/delete/:id", isLoggedIn, (req, res) => {
     })
     .then(destroyResult => {
         req.flash('success', "Transaction deleted");
-        res.redirect(`/shareholders`);
+        res.redirect(`back`);
     }).catch(error => {
         console.log(`🔺🔺🔺🔺 Error in delete method: ${JSON.stringify(error)}`);
     })
@@ -80,7 +80,7 @@ router.post('/', (req,res) => {
         amount: req.body.amount,
         date: dateForDb,
         category: req.body.category,
-        checkNumber: req.body.checkNumber,
+        checkNumber: req.body.checkNumber || null,
         notes: req.body.notes,
         shareholderId: req.body.shareholder
     })

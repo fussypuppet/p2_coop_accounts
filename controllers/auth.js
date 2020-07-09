@@ -95,12 +95,9 @@ router.get('/edit', (req, res) => {
 
 router.post('/login', function(req,res,next){           // our first use of keyword "next".  This finds next instance of same route pattern and then executes it
     passport.authenticate('local', function(error, user,info) {
-        //if no user is authenticated
         if (!user){
             req.flash('error', "invalid username or password");
-            return res.redirect('/auth/login');
-            //save our user session no username
-            //redirect user to try logging in again
+            return res.redirect('back');
         }
         if (error) {
             return next(error);
