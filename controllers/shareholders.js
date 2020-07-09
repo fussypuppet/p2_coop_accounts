@@ -76,27 +76,37 @@ router.get('/:id', isLoggedIn, (req,res) => {
             .then(dbDuesList => {
                 let filledDuesList = fillDuesGaps(dbDuesList);
                 let croppedFilledDuesList = cropTransactionsByDate(filledDuesList, shareholder.startDate);
+                let chartData = [];
+                let today = new Date();
                 shareholder.transactions = shareholder.transactions.concat(croppedFilledDuesList); // concatenate dues charges to dues payments
                 shareholder.transactions.sort(function(a, b){ return a.date - b.date});  // collate charges & payments by ascending date
+                if (req.query.years == 2){  // if the url requested that only 2 years of transactions be displayed, crop the list to that time span
+                    shareholder.transactions = cropTransactionsByDate(shareholder.transactions, (today - 31536000000*2));  // 31536000000 is # of milliseconds/year
+                }
                 shareholder.transactions.forEach((transaction, index) => {  // add running balance to transaction list
                     if (index > 0){
                         transaction.runningBalance = shareholder.transactions[index-1].runningBalance + parseInt(transaction.amount);
                     } else {
                         transaction.runningBalance = parseInt(transaction.amount);
                     }
+                    // if this transaction is the last one for the month, add it to the list of graphable points.  Graph is far more readable if we chart only one point per month.
+                    if ((index === shareholder.transactions.length - 1) || (transaction.date.getMonth() != shareholder.transactions[index + 1].date.getMonth())){
+                        chartData.push({date: transaction.date, runningBalance: transaction.runningBalance});
+                    }
                 })
                 shareholder.transactions.forEach(transaction => {   // format all dollar values as currency strings for display in view
                     transaction.amount = formatCurrency(transaction.amount);
-                    transaction.runningBalanceString = formatCurrency(transaction.runningBalance); //runningBalance itself must stay a number for QuickChart API, so we create runningBalanceString
+                    transaction.runningBalance = formatCurrency(transaction.runningBalance);
                 })
+                shareholder.transactions.reverse(); // user has to scroll around less if recent transactions are listed first
                 //Now construct query string to send to QuickChart API.  This will be a src attribute for an img html element in the view.
                 //Map functions retrieve lists of dates and amounts from shareholder.transactions
-                let theseDates = shareholder.transactions.map(transaction => `${transaction.date.getMonth()+1}-${transaction.date.getFullYear()}`);
+                let theseDates = chartData.map(dataPoint => `${dataPoint.date.getMonth()+1}-${dataPoint.date.getFullYear()}`);
                 //we'll construct the map in chunks to avoid having an extremely long line of code
                 let graphImgSrc = `https://quickchart.io/chart?height=250&c={type:%27line%27,data:{labels:${JSON.stringify(theseDates)}` // axis labels
-                graphImgSrc = graphImgSrc + `,datasets:[{label:%27Running%20Balance%27,data:${JSON.stringify(shareholder.transactions.map(transaction => transaction.runningBalance))}` // chart data
+                graphImgSrc = graphImgSrc + `,datasets:[{label:%27Running%20Balance%27,data:${JSON.stringify(chartData.map(dataPoint => dataPoint.runningBalance))}` // chart data
                 graphImgSrc = graphImgSrc + `,borderWidth:0.5,pointRadius:0,fill:false,borderColor:%27blue%27}]}}`; // chart styling options
-                res.render('./partials/showShareholder', {shareholder, graphImgSrc});
+                res.render('./partials/showShareholder', {shareholder, graphImgSrc, years: req.query.years});
             })
         })
         .catch(error => {

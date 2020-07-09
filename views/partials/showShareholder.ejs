@@ -1,6 +1,15 @@
 <div class="container">
-    <h2><%= shareholder.name %>, Unit <%= shareholder.unit.number %></h2>
-    <h3>Shareholder since <%= shareholder.startDate.getMonth() + 1 %>/<%= shareholder.startDate.getFullYear() %></h3>
+    <h2><%= shareholder.name %></h2>
+    <p>Unit <%= shareholder.unit.number %>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbspShareholder since <%= shareholder.startDate.getMonth() + 1 %>/<%= shareholder.startDate.getFullYear() %></p>
+    <% if (years == 2) { %>
+        <p>Displaying last 2 years 
+            <button class="btn btn-secondary" onclick="<%= `window.location.href='/shareholders/${shareholder.id}'` %>">Show full history</button>
+        </p>
+    <% } else { %>
+        <p>Displaying full history 
+            <button class="btn btn-secondary" onclick="<%= `window.location.href='/shareholders/${shareholder.id}?years=2'` %>">Show last 2 years</button>
+        </p>
+    <% } %>
     <img src="<%= graphImgSrc %>" alt="graph of running balances">
     <hr>
     <h3>Transaction History</h3>
@@ -32,7 +41,7 @@
                     <%= transaction.notes %>
                 </td>
                 <td>
-                    <%= transaction.runningBalanceString %>
+                    <%= transaction.runningBalance %>
                 </td>
                 <td>
                     <% if (transaction.category.includes("payment")) { %>

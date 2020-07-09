@@ -3739,7 +3739,7 @@ db.transaction.bulkCreate([
         shareholderId: 11
     },    {
         date: "08/10/2014",
-        amount: 750,
+        amount: 375,
         checkNumber: unit20StartingCheck++,
         category: "dues payment",
         shareholderId: 11
