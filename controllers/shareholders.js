@@ -98,6 +98,9 @@ router.get('/:id', isLoggedIn, (req,res) => {
                     transaction.amount = formatCurrency(transaction.amount);
                     transaction.runningBalance = formatCurrency(transaction.runningBalance);
                 })
+                if (req.query.filter){
+                    shareholder.transactions = shareholder.transactions.filter(transaction => String(transaction.checkNumber).includes(req.query.filter));
+                }
                 shareholder.transactions.reverse(); // user has to scroll around less if recent transactions are listed first
                 //Now construct query string to send to QuickChart API.  This will be a src attribute for an img html element in the view.
                 //Map functions retrieve lists of dates and amounts from shareholder.transactions
