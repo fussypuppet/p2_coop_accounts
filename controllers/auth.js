@@ -6,8 +6,8 @@ const db = require('../models');
 const flash = require('connect-flash');
 const passport = require('../config/ppConfig');
 
-function catchError(err){
-    console.log(`Error: ${JSON.stringify(err)}`);
+function catchError(req, err){
+    console.log(`🔴🔴🔴🔴Error: ${JSON.stringify(err)}`);
     req.flash('error', err.message);
 }
 
@@ -69,17 +69,17 @@ router.post('/register', function(req,res){
                         res.redirect('/auth/register');
                     }
                 }).catch(function(err){
-                    catchError(err);
+                    catchError(req, err);
                     res.redirect('/auth/register');
                 })
             })
             .catch(function(err){
-                catchError(err);
+                catchError(req, err);
                 res.redirect('/auth/register');
             })
         }
     }).catch(function(err){
-        catchError(err);
+        catchError(req, err);
         res.redirect('/auth/register');
     })
 })
@@ -130,9 +130,10 @@ router.post('/login', passport.authenticate('local', {
 router.put('/', function(req,res,next) {
     passport.authenticate('local', function(err, user, info){
         if (!user){
+            req.flash('error', "Incorrect password");
             return res.redirect('/auth/edit');
         } else if (err) {
-            catchError(err);
+            catchError(req, err);
         } else {
             db.user.update({
                 name: req.body.name,
@@ -147,7 +148,7 @@ router.put('/', function(req,res,next) {
                 return res.redirect('/auth/logout');
             })
             .catch(err => {
-                catchError(err);
+                catchError(req, err);
             })
         }
     })(req,res,next);

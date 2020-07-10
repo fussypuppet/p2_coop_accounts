@@ -119,7 +119,11 @@ router.get('/:id', isLoggedIn, (req,res) => {
         })
         .catch(err => {
             catchError(req, err);
-            res.redirect('back');
+            if (req.user.isAdministrator){
+                res.redirect('/shareholders');
+            } else {
+                 res.redirect(`/shareholders/${req.user.id}`);
+            }
         })
     } else {
         catchError("🪓🪓🪓🪓 req params was style.css again");
@@ -166,11 +170,11 @@ router.get('/', isLoggedIn, (req, res) => {
             res.render('./shareholders/index', {shareholdersList: shareholdersList});
         })
         .catch(err => {
-            catchError(err);
+            catchError(req, err);
             res.redirect('back');
         })
     }).catch(err => {
-        catchError(err);
+        catchError(req, err);
         res.redirect('back');
     })
 })

@@ -5,8 +5,8 @@ const isLoggedIn = require('../middleware/isLoggedIn');
 const router = express.Router();
 const flash = require('connect-flash');
 
-function catchError(err){
-    console.log(`Error: ${JSON.stringify(err)}`);
+function catchError(req, err){
+    console.log(`🔴🔴🔴🔴Error: ${JSON.stringify(err)}`);
     req.flash('error', err.message);
 }
 
@@ -16,7 +16,7 @@ router.get('/new', isLoggedIn, (req,res) => {
         res.render('./transactions/newTransaction', {shareholderList: shareholderList});
     })
     .catch(err => {
-        catchError(err);
+        catchError(req, err);
         res.redirect('back');
     })
 })
@@ -31,12 +31,12 @@ router.get("/edit/:id", isLoggedIn, (req,res) => {
             res.render('./transactions/editTransaction', {transaction: transaction, shareholdersList: shareholdersList});
         })
         .catch(err => {
-            catchError(err);
+            catchError(req, err);
             res.redirect('back');
         })
     })
     .catch(err => {
-        catchError(err);
+        catchError(req, err);
         res.redirect('back');
     })
 })
@@ -58,7 +58,7 @@ router.put("/edit/:id", isLoggedIn, (req, res) => {
         res.redirect(`/shareholders/${req.body.shareholder}?years=2`);
     })
     .catch(err => {
-        catchError(err);
+        catchError(req, err);
         res.redirect('/back');
     }) 
 })
@@ -73,7 +73,7 @@ router.delete("/delete/:id", isLoggedIn, (req, res) => {
         req.flash('success', "Transaction deleted");
         res.redirect(`back`);
     }).catch(err => {
-        catchError(err);
+        catchError(req, err);
         res.redirect('back');
     })
 })
@@ -100,7 +100,7 @@ router.post('/', (req,res) => {
         req.flash('success', "Transaction created");
         res.redirect(`/shareholders/${req.body.shareholder}?years=2`);
     }).catch(err => {
-        catchError(err);
+        catchError(req, err);
         res.redirect('/transactions/new');
     })
 })

@@ -4,9 +4,9 @@ const isLoggedIn = require('../middleware/isLoggedIn');
 const router = express.Router();
 const flash = require('connect-flash');
 
-function catchError(err){
-    console.log(`Error: ${JSON.stringify(err)}`);
-    //req.flash('error', err.message);
+function catchError(req, err){
+    console.log(`🔴🔴🔴🔴Error: ${JSON.stringify(err)}`);
+    req.flash('error', err.message);
 }
 
 router.get('/new', isLoggedIn, (req,res) => {
@@ -58,18 +58,18 @@ router.post('/', isLoggedIn, (req,res) => {
                         res.redirect('/shareholders');
                     })
                     .catch(function(err){
-                        catchError(err);
+                        catchError(req, err);
                         res.redirect('/dues/new');
                     })
                 })
                 .catch(function(err){
-                    catchError(err);
+                    catchError(req, err);
                     res.redirect('/dues/new');
                 })
             }
         })
         .catch(function(err){
-            catchError(err);
+            catchError(req, err);
             res.redirect('/dues/new');
         })
     }
