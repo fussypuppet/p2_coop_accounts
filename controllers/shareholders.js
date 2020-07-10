@@ -4,8 +4,8 @@ const router = express.Router();
 const { sequelize } = require('../models');
 const isLoggedIn = require('../middleware/isLoggedIn');
 
-function catchError(err){
-    console.log(`Error: ${JSON.stringify(err)}`);
+function catchError(req, err){
+    console.log(`🔴🔴🔴🔴Error: ${JSON.stringify(err)}`);
     req.flash('error', err.message);
 }
 
@@ -118,7 +118,7 @@ router.get('/:id', isLoggedIn, (req,res) => {
             })
         })
         .catch(err => {
-            catchError(err);
+            catchError(req, err);
             res.redirect('back');
         })
     } else {
