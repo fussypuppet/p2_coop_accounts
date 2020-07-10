@@ -5,29 +5,39 @@ const isLoggedIn = require('../middleware/isLoggedIn');
 const router = express.Router();
 const flash = require('connect-flash');
 
+function catchError(err){
+    console.log(`Error: ${JSON.stringify(err)}`);
+    req.flash('error', err.message);
+}
+
 router.get('/new', isLoggedIn, (req,res) => {
     db.shareholder.findAll()
     .then(shareholderList => {
         res.render('./transactions/newTransaction', {shareholderList: shareholderList});
     })
-    .catch(error => {
-        console.log(`🧿🧿🧿Error: ${error}`)
+    .catch(err => {
+        catchError(err);
+        res.redirect('back');
     })
 })
 
 router.get("/edit/:id", isLoggedIn, (req,res) => {
     db.transaction.findByPk(req.params.id)
     .then(transaction => {
-        db.shareholder.findAll()
+        db.shareholder.findAll({
+            order: [['name', 'ASC']]
+        })
         .then(shareholdersList => {
             res.render('./transactions/editTransaction', {transaction: transaction, shareholdersList: shareholdersList});
         })
-        .catch(error => {
-            console.log(`Error in edit transaction method while retrieving shareholder list: ${JSON.stringify(error)}`);
+        .catch(err => {
+            catchError(err);
+            res.redirect('back');
         })
     })
-    .catch(error => {
-        console.log(`Error in edit transaction method while retrieving transaction: ${JSON.stringify(error)}`);
+    .catch(err => {
+        catchError(err);
+        res.redirect('back');
     })
 })
 
@@ -47,8 +57,9 @@ router.put("/edit/:id", isLoggedIn, (req, res) => {
         req.flash('success', "Transaction updated");
         res.redirect(`/shareholders/${req.body.shareholder}?years=2`);
     })
-    .catch(error => {
-        console.log(`🔴🔴🔴 Error in transaction update method: ${JSON.stringify(error)}`);
+    .catch(err => {
+        catchError(err);
+        res.redirect('/back');
     }) 
 })
 
@@ -61,8 +72,9 @@ router.delete("/delete/:id", isLoggedIn, (req, res) => {
     .then(destroyResult => {
         req.flash('success', "Transaction deleted");
         res.redirect(`back`);
-    }).catch(error => {
-        console.log(`🔺🔺🔺🔺 Error in delete method: ${JSON.stringify(error)}`);
+    }).catch(err => {
+        catchError(err);
+        res.redirect('back');
     })
 })
 
@@ -87,8 +99,9 @@ router.post('/', (req,res) => {
     .then(createResponse => {
         req.flash('success', "Transaction created");
         res.redirect(`/shareholders/${req.body.shareholder}?years=2`);
-    }).catch(error => {
-        console.log(`🩸🩸🩸Error creating transaction: ${JSON.stringify(error)}`);
+    }).catch(err => {
+        catchError(err);
+        res.redirect('/transactions/new');
     })
 })
 

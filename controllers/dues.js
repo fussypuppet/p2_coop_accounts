@@ -3,6 +3,11 @@ const db = require('../models');
 const isLoggedIn = require('../middleware/isLoggedIn');
 const router = express.Router();
 
+function catchError(err){
+    console.log(`Error: ${JSON.stringify(err)}`);
+    req.flash('error', err.message);
+}
+
 router.get('/new', isLoggedIn, (req,res) => {
     res.render('./dues/newDues');
 })
@@ -39,12 +44,14 @@ router.post('/', isLoggedIn, (req,res) => {
             req.flash('success', "Dues updated");
             res.redirect('/shareholders');
         })
-        .catch(function(createError){
-            console.log(`🩸🩸🩸 Dues create error: ${JSON.stringify(createError)}`);
+        .catch(function(err){
+            catchError(err);
+            res.redirect('/dues/new');
         })
     })
     .catch(function(updateError){
-        console.log(`🚨🚨🚨 Dues update error: ${JSON.stringify(updateError)}`);
+        catchError(err);
+        res.redirect('/dues/new');
     });
 })
 

@@ -4,6 +4,11 @@ const router = express.Router();
 const { sequelize } = require('../models');
 const isLoggedIn = require('../middleware/isLoggedIn');
 
+function catchError(err){
+    console.log(`Error: ${JSON.stringify(err)}`);
+    req.flash('error', err.message);
+}
+
 function fillDuesGaps(inputDuesList){
     //receives a list of dues db entries of a single unit size in ascending order of start date.  The entries list their effective start date and exclusive end date(if any).  The dates are in the date format returned by sequelize.
     //outputs a list of month-by-month dues amounts formatted as transactions [{amount: <-XXX>, category: "dues", checkNumber: "", date: <date object for the first of the relevant month>}].   There will be an entry for every month in the span covered by the input.
@@ -112,11 +117,13 @@ router.get('/:id', isLoggedIn, (req,res) => {
                 res.render('./shareholders/showShareholder', {shareholder, graphImgSrc, years: req.query.years});
             })
         })
-        .catch(error => {
-            console.log(`🧲🧲🧲 Error retrieving shareholder: ${JSON.stringify(error)}`);
+        .catch(err => {
+            catchError(err);
+            res.redirect('back');
         })
     } else {
-        console.log("🪓🪓🪓🪓 req params was style.css again");
+        catchError("🪓🪓🪓🪓 req params was style.css again");
+        res.redirect('back');
     }
 });
 
@@ -156,14 +163,15 @@ router.get('/', isLoggedIn, (req, res) => {
                     }
                 })
             }
-            res.render('./shareholders/index', {shareholdersList: shareholdersList, error: null});
+            res.render('./shareholders/index', {shareholdersList: shareholdersList});
         })
-        .catch(duesError => {
-            console.log(`💋💋💋 Error retrieving dues: ${duesError}`);
+        .catch(err => {
+            catchError(err);
+            res.redirect('back');
         })
-    }).catch(error => {
-        console.log("Sending shareholder findAll error to ejs 💋")
-        res.render('./shareholders/index', {shareholdersList: null, error: error});
+    }).catch(err => {
+        catchError(err);
+        res.redirect('back');
     })
 })
 

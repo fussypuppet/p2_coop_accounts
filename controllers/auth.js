@@ -6,6 +6,11 @@ const db = require('../models');
 const flash = require('connect-flash');
 const passport = require('../config/ppConfig');
 
+function catchError(err){
+    console.log(`Error: ${JSON.stringify(err)}`);
+    req.flash('error', err.message);
+}
+
 router.get('/register', function(req,res){
     db.unit.findAll()
     .then(units => {
@@ -60,23 +65,22 @@ router.post('/register', function(req,res){
                             successFlash: 'Thanks for signing up!'
                         })(req,res);
                     } else {
-                        console.log("User email already exists");
                         req.flash('error', 'Error: email already exists');
                         res.redirect('/auth/register');
                     }
                 }).catch(function(err){
-                    console.log(`Error found Message: ${err.message}.  Please review ${err}`);
-                    req.flash('error', err.message)
+                    catchError(err);
                     res.redirect('/auth/register');
                 })
             })
             .catch(function(err){
-                req.flash('error', err.message);
+                catchError(err);
                 res.redirect('/auth/register');
             })
         }
     }).catch(function(err){
-        console.log(`Error finding unit of registering user: ${err}`);
+        catchError(err);
+        res.redirect('/auth/register');
     })
 })
 
@@ -124,11 +128,11 @@ router.post('/login', passport.authenticate('local', {
 }));
 
 router.put('/', function(req,res,next) {
-    passport.authenticate('local', function(error, user, info){
+    passport.authenticate('local', function(err, user, info){
         if (!user){
             return res.redirect('/auth/edit');
-        } else if (error) {
-            console.log("🟣🟣🟣🟣🟣🟣Authentication error in user update route");
+        } else if (err) {
+            catchError(err);
         } else {
             db.user.update({
                 name: req.body.name,
@@ -142,8 +146,8 @@ router.put('/', function(req,res,next) {
                 req.flash('success', "User information updated");
                 return res.redirect('/auth/logout');
             })
-            .catch(error => {
-                console.log("🟣🟣🟣🟣🟣User update error");
+            .catch(err => {
+                catchError(err);
             })
         }
     })(req,res,next);

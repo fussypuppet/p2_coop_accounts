@@ -1,4 +1,4 @@
-const db = require('./models');
+const db = require('../models');
 
 let unit1StartingCheck = 1100;
 let unit2StartingCheck = 401;
