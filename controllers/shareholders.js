@@ -111,9 +111,21 @@ router.get('/:id', isLoggedIn, (req,res) => {
                 //Map functions retrieve lists of dates and amounts from shareholder.transactions
                 let theseDates = chartData.map(dataPoint => `${dataPoint.date.getMonth()+1}-${dataPoint.date.getFullYear()}`);
                 //we'll construct the map in chunks to avoid having an extremely long line of code
-                let graphImgSrc = `https://quickchart.io/chart?height=250&c={type:%27line%27,data:{labels:${JSON.stringify(theseDates)}` // axis labels
-                graphImgSrc = graphImgSrc + `,datasets:[{label:%27Running%20Balance%27,data:${JSON.stringify(chartData.map(dataPoint => dataPoint.runningBalance))}` // chart data
-                graphImgSrc = graphImgSrc + `,borderWidth:0.5,pointRadius:0,fill:false,borderColor:%27blue%27}]}}`; // chart styling options
+                /*let graphImgSrc = `https://quickchart.io/chart?height=240&c={type:%27line%27,`
+                    graphImgSrc = graphImgSrc + `data:{labels:${JSON.stringify(theseDates)}` // axis labels
+                    graphImgSrc = graphImgSrc + `,datasets:[{label:%27Running%20Balance%27,data:${JSON.stringify(chartData.map(dataPoint => dataPoint.runningBalance))}` // chart data
+                    graphImgSrc = graphImgSrc + `,borderWidth:0.5,pointRadius:0,fill:false,borderColor:%27blue%27}]},` // data styling
+                    graphImgSrc = graphImgSrc + `options:{scales:{xAxes:[{ticks:{fontSize:9,autoSkip:true,maxTicksLimit:12}}],yAxes:[{ticks:{fontSize:9}},`
+                    graphImgSrc = graphImgSrc + `{callback:function(label){return%27$%27%2Blabel%3B}}]}}}`; // data styling options    let outputString = "";*/
+                let graphImgSrc = `https://quickchart.io/chart?height=240&c=`       // piece of API url that must not have special characters urlencoded
+                    let chartPiece = `{type:'line',`    //piece of API url that does need special characters encoded
+                    chartPiece = chartPiece + `data:{labels:${JSON.stringify(theseDates)}` // axis labels
+                    chartPiece = chartPiece + `,datasets:[{label:'Running Balance',data:${JSON.stringify(chartData.map(dataPoint => dataPoint.runningBalance))}` // chart data
+                    chartPiece = chartPiece + `,borderWidth:0.5,pointRadius:0,fill:false,borderColor:'blue'}]},` // data styling
+                    chartPiece = chartPiece + `options:{scales:{xAxes:[{ticks:{fontSize:8,autoSkip:true,maxTicksLimit:12}}],yAxes:[{ticks:` // data styling options
+                    chartPiece = chartPiece + `{callback:${formatCurrency.toString()},fontSize:8}}]}}}`; 
+                    chartPiece = encodeURIComponent(chartPiece);
+                    graphImgSrc = graphImgSrc + chartPiece;
                 res.render('./shareholders/showShareholder', {shareholder, graphImgSrc, years: req.query.years});
             })
         })

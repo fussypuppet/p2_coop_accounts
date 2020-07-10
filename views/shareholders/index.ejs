@@ -23,9 +23,15 @@
                 <td>
                     <p><%= shareholder.unit.number %></p>
                 </td>
-                <td>
-                    <%= shareholder.balance %>
-                </td>
+                <% if (shareholder.balance.charAt(0) === "-"){ %>
+                    <td class="red bold">
+                        <%= shareholder.balance %>
+                    </td>
+                <% } else { %>
+                    <td>
+                        <%= shareholder.balance %>
+                    </td>
+                <% } %>
             </tr>
         <% }) %>
     </table>
