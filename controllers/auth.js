@@ -23,7 +23,8 @@ router.get('/register', function(req,res){
         res.render('auth/register', {units});
     })
     .catch(error => {
-        console.log(`Error retrieving units for user registration: ${error}`);
+        catchError(error);
+        res.redirect('/auth/login');
     })
 })
 
@@ -94,18 +95,21 @@ router.get('/login', function(req,res){
     } 
 })
 
-
-router.post('/login', function(req,res,next){           // our first use of keyword "next".  This finds next instance of same route pattern and then executes it
+router.post('/login', function(req,res){
     passport.authenticate('local', function(error, user,info) {
         if (!user){
             req.flash('error', "invalid username or password");
-            return res.redirect('back');
+            return res.redirect('auth/login');
         }
         if (error) {
-            return next(error);
+            catchError(error);
+            return res.redirect('/auth/login');
         }
         req.login(user, function(error ){
-            if (error) next(error);  // ooh fancy single-line if statement!
+            if (error) {
+                catchError(error);
+                return res.redirect('/auth/login');
+            }
             req.flash('success', `Login successful. Welcome ${req.user.name}!`);
             req.session.save(function(){
                 if (req.user.isAdministrator){
@@ -115,24 +119,15 @@ router.post('/login', function(req,res,next){           // our first use of keyw
                 }
             })
         })
-    })(req, res, next);
+    })(req, res);
 })
-
-router.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/auth/login',
-    successFlash: 'Welcome to our app!',
-    failureFlash: 'Invalid username or password'
-}));
-
 
 // I haven't used user IDs as url parameters for edit, update, & delete CRUD routes for privacy & because all the info we need is in req.user
 router.get('/edit', (req, res) => {
     res.render("./auth/editUser", {user: req.user});
 })
 
-
-router.delete('/', function(req,res,next) {
+router.delete('/', function(req,res) {
     db.shareholder.update({
         userId: null
     }, {
@@ -145,25 +140,28 @@ router.delete('/', function(req,res,next) {
             where: {id: req.user.id}
         })
         .then(deleteResult => {
-            req.flash('success', "User account deleted");
+            req.flash('success', "User account deleted");  // this message doesn't survive the redirect to logout.  It would be neat to find a way to display it.
             res.redirect('/auth/logout');
         })
         .catch(err => {
             catchError(req, err);
+            res.redirect('/auth/edit');
         })
     })
     .catch(err => {
         catchError(req, err);
+        res.redirect('/auth/edit');
     })
 })
 
-router.put('/', function(req,res,next) {
+router.put('/', function(req,res) {
     passport.authenticate('local', function(err, user, info){
         if (!user){
             req.flash('error', "Incorrect password");
             return res.redirect('/auth/edit');
         } else if (err) {
             catchError(req, err);
+            return res.redirect('/auth/edit');
         } else {
             db.user.update({
                 name: req.body.name,
@@ -179,15 +177,16 @@ router.put('/', function(req,res,next) {
             })
             .catch(err => {
                 catchError(req, err);
+                return res.redirect('/auth/edit');
             })
         }
-    })(req,res,next);
+    })(req,res);
 })
 
-
 router.get('/logout', function(req,res){
+    req.flash('success', 'You have been logged out');
     req.logout();
-    res.redirect('/');
+    res.redirect('/auth/login');
 })
 
 module.exports = router;
