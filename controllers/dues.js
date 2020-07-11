@@ -31,15 +31,12 @@ router.post('/', isLoggedIn, (req,res) => {
                 req.flash('error', "Error: Date of new dues adjustment must be more recent than last adjustment")
                 res.redirect('/dues/new');
             } else {
-                db.dues.update(
-                    {endDate: req.body.effectiveDate}, // don't worry, this is NOT primarily an update route.  Just need to update some before creating others
+                db.dues.update( // add ending date to previous dues scheme
+                    {endDate: req.body.effectiveDate},
                     {where: {endDate: null}}
                 )
                 .then(function(updateResponse){
-                    //now to add new dues amounts    
-                    //user will input up to three dollar amounts (for small, medium, and/or large units)
-                    //so need to use a bulk create command.
-                    //and should assemble the dues amounts into a list with no null values to pass to the bulkCreate
+                    //user will input three dollar amounts (for small, medium, and large units), so need to format input & use bulkCreate
                     function formatForCreate(thisAmount, thisDate, thisSize){
                         return {
                             amount: thisAmount,
@@ -48,11 +45,10 @@ router.post('/', isLoggedIn, (req,res) => {
                         };
                     }
                     var newDuesList = [];
-                    if (req.body.smallDues) newDuesList.push(formatForCreate(req.body.smallDues, req.body.effectiveDate, "small"));
-                    if (req.body.mediumDues) newDuesList.push(formatForCreate(req.body.mediumDues, req.body.effectiveDate, "medium"));
-                    if (req.body.largeDues) newDuesList.push(formatForCreate(req.body.largeDues, req.body.effectiveDate, "large"));
+                    newDuesList.push(formatForCreate(req.body.smallDues, req.body.effectiveDate, "small"));
+                    newDuesList.push(formatForCreate(req.body.mediumDues, req.body.effectiveDate, "medium"));
+                    newDuesList.push(formatForCreate(req.body.largeDues, req.body.effectiveDate, "large"));
                     db.dues.bulkCreate(newDuesList)
-                    //also need to add ending date to previous dues amounts (i.e. any that are null in their endDate field);
                     .then(function(creationResponse){
                         req.flash('success', "Dues updated");
                         res.redirect('/shareholders');
