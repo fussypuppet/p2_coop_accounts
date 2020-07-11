@@ -4,6 +4,9 @@ const router = express.Router();
 const { sequelize } = require('../models');
 const isLoggedIn = require('../middleware/isLoggedIn');
 
+
+// UTILITY FUNCTIONS
+
 function catchError(req, err){
     console.log(`🔴🔴🔴🔴Error: ${JSON.stringify(err)}`);
     req.flash('error', err.message);
@@ -11,7 +14,7 @@ function catchError(req, err){
 
 function fillDuesGaps(inputDuesList){
     //receives a list of dues db entries of a single unit size in ascending order of start date.  The entries list their effective start date and exclusive end date(if any).  The dates are in the date format returned by sequelize.
-    //outputs a list of month-by-month dues amounts formatted as transactions [{amount: <-XXX>, category: "dues", checkNumber: "", date: <date object for the first of the relevant month>}].   There will be an entry for every month in the span covered by the input.
+    //outputs a list of month-by-month dues amounts formatted as transactions [{amount: <-XXX>, category: "dues charge", checkNumber: "", date: <date object for the first of the relevant month>}].   There will be an entry for every month in the span covered by the input.
     let outputDuesList = [];
     inputDuesList.forEach(dbDuesEntry => {
         // if this entry has no end date, make it end next month (so it matches exclusive end dates elsewhere in the list).  The rest of this function can then treat all dbDuesEntries as equally shaped
@@ -21,7 +24,7 @@ function fillDuesGaps(inputDuesList){
             dbDuesEntry.endDate = thisEndDate;
         }
         let potentialOutputDate = new Date(dbDuesEntry.startDate);
-        while (potentialOutputDate < dbDuesEntry.endDate){  // starting with the start date, if the date is before the end date, add it to the output, then add a month and check again etc
+        while (potentialOutputDate < dbDuesEntry.endDate){  // starting with the dues start date, if the start date is before the end date, add it to the output, then add a month to the start date and loop
             outputDuesList.push({amount: -(dbDuesEntry.amount), date: potentialOutputDate, category: "dues charge", checkNumber: ""});
             potentialOutputDate = new Date(potentialOutputDate.getFullYear(), (potentialOutputDate.getMonth() + 1));
         }
@@ -32,9 +35,9 @@ function fillDuesGaps(inputDuesList){
 function cropTransactionsByDate(inputTransactionList, cutoffDate){
     //receives a list of transactions in ascending order and removes all that are older than a cutoff date 
     let outputTransactionList = [];
-    for (i=0; i< inputTransactionList.length; i++){
-        if (inputTransactionList[i].date >= cutoffDate){   // if this the first transaction that is on the good side of the cutoff, all entries before it should be sliced out
-            outputTransactionList = inputTransactionList.slice(i); // since shareholders index will be running this multiple times on a given input, we don't want to change input in-place
+    for (i=0; i<inputTransactionList.length; i++){
+        if (inputTransactionList[i].date >= cutoffDate){   // if this the first transaction that is on the want-to-keep side of the cutoff, all entries before it should be sliced out
+            outputTransactionList = inputTransactionList.slice(i); // since shareholders index will be running this multiple times on a given input list, we want to leave the input transaction list alone and return a fresh list
             break;
         }        
     }
@@ -63,6 +66,11 @@ function formatCurrency(inputInteger){ // accepts an integer and return a curren
     return putCommas(String(inputInteger), outputString);
 }
 
+
+// RESTFUL ROUTES
+
+
+// renders a show-shareholder page with all shareholder info, a list of all charges & payments on that shareholder's account, and a url for retrieving a QuickChart API graph image
 router.get('/:id', isLoggedIn, (req,res) => {
     if (req.params.id != 'style.css'){
         db.shareholder.findByPk(
@@ -71,8 +79,8 @@ router.get('/:id', isLoggedIn, (req,res) => {
                 include: [db.unit, db.transaction]
             }
         )
-        .then(shareholder => {
-            db.dues.findAll({
+        .then(shareholder => { // retrieve all dues applicable to that shareholder's unit, and prep them for display
+            db.dues.findAll({  // since dues don't have a db-level relationship to shareholders, we need to make a separate db call instead of including them in the previous one.
                 where: {
                     size: shareholder.unit.size
                 },
@@ -104,28 +112,22 @@ router.get('/:id', isLoggedIn, (req,res) => {
                     transaction.amount = formatCurrency(transaction.amount);
                     transaction.runningBalance = formatCurrency(transaction.runningBalance);
                 })
-                if (req.query.filter){
+                if (req.query.filter){  // if user used filter field, crop out all transactions that don't fit search term
                     shareholder.transactions = shareholder.transactions.filter(transaction => String(transaction.checkNumber).includes(req.query.filter));
                 }
                 shareholder.transactions.reverse(); // user has to scroll around less if recent transactions are listed first
-                //Now construct query string to send to QuickChart API.  This will be a src attribute for an img html element in the view.
-                //Map functions retrieve lists of dates and amounts from shareholder.transactions
+                //Now construct query string to send to QuickChart API.  This will be a src attribute for an img element in the view.
+                //the following map functions retrieve lists of dates and amounts from shareholder.transactions
                 let theseDates = chartData.map(dataPoint => `${dataPoint.date.getMonth()+1}-${dataPoint.date.getFullYear()}`);
-                //we'll construct the map in chunks to avoid having an extremely long line of code
-                /*let graphImgSrc = `https://quickchart.io/chart?height=240&c={type:%27line%27,`
-                    graphImgSrc = graphImgSrc + `data:{labels:${JSON.stringify(theseDates)}` // axis labels
-                    graphImgSrc = graphImgSrc + `,datasets:[{label:%27Running%20Balance%27,data:${JSON.stringify(chartData.map(dataPoint => dataPoint.runningBalance))}` // chart data
-                    graphImgSrc = graphImgSrc + `,borderWidth:0.5,pointRadius:0,fill:false,borderColor:%27blue%27}]},` // data styling
-                    graphImgSrc = graphImgSrc + `options:{scales:{xAxes:[{ticks:{fontSize:9,autoSkip:true,maxTicksLimit:12}}],yAxes:[{ticks:{fontSize:9}},`
-                    graphImgSrc = graphImgSrc + `{callback:function(label){return%27$%27%2Blabel%3B}}]}}}`; // data styling options    let outputString = "";*/
+                //we'll construct the graph url in chunks to avoid having an extremely long line of code
                 let graphImgSrc = `https://quickchart.io/chart?height=240&c=`       // piece of API url that must not have special characters urlencoded
                     let chartPiece = `{type:'line',`    //piece of API url that does need special characters encoded
                     chartPiece = chartPiece + `data:{labels:${JSON.stringify(theseDates)}` // axis labels
                     chartPiece = chartPiece + `,datasets:[{label:'Running Balance',data:${JSON.stringify(chartData.map(dataPoint => dataPoint.runningBalance))}` // chart data
                     chartPiece = chartPiece + `,borderWidth:0.5,pointRadius:0,fill:false,borderColor:'blue'}]},` // data styling
                     chartPiece = chartPiece + `options:{scales:{xAxes:[{ticks:{fontSize:8,autoSkip:true,maxTicksLimit:12}}],yAxes:[{ticks:` // data styling options
-                    chartPiece = chartPiece + `{callback:${formatCurrency.toString()},fontSize:8}}]}}}`; 
-                    chartPiece = encodeURIComponent(chartPiece);
+                    chartPiece = chartPiece + `{callback:${formatCurrency.toString()},fontSize:8}}]}}}`;
+                    chartPiece = encodeURIComponent(chartPiece); // urlencode the string so that things like quotation marks don't confuse API parsing
                     graphImgSrc = graphImgSrc + chartPiece;
                 res.render('./shareholders/showShareholder', {shareholder, graphImgSrc, years: req.query.years});
             })
@@ -180,7 +182,7 @@ router.get('/', isLoggedIn, (req, res) => {
                     }
                 })
             }
-            res.render('./shareholders/index', {shareholdersList: shareholdersList});
+            res.render('./shareholders/index', {shareholdersList});
         })
         .catch(err => {
             catchError(req, err);
