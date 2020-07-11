@@ -23,7 +23,7 @@ router.get('/register', function(req,res){
         res.render('auth/register', {units});
     })
     .catch(error => {
-        catchError(error);
+        catchError(req, error);
         res.redirect('/auth/login');
     })
 })
@@ -101,12 +101,12 @@ router.post('/login', function(req,res){
             return res.redirect('/auth/login');
         }
         if (error) {
-            catchError(error);
+            catchError(req, error);
             return res.redirect('/auth/login');
         }
         req.login(user, function(error ){
             if (error) {
-                catchError(error);
+                catchError(req, error);
                 return res.redirect('/auth/login');
             }
             req.flash('success', `Login successful. Welcome ${req.user.name}!`);

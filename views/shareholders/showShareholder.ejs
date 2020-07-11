@@ -30,7 +30,9 @@
             <th>Amount</th>
             <th>Notes</th>
             <th>Running Balance</th>
-            <th>Actions</th>
+            <% if (shareholder.isAdministrator) { %>
+                <th>Actions</th>
+            <% } %>
         </tr>
         <% shareholder.transactions.forEach(transaction => { %>
             <tr>
@@ -64,14 +66,14 @@
                         <%= transaction.runningBalance %>
                     </td>
                 <% } %>
-                <td>
-                    <% if (transaction.category.includes("payment")) { %>
+                <% if (transaction.category.includes("payment") && shareholder.isAdministrator) { %>
+                    <td>
                         <button class="btn btn-secondary" onclick="<%= `window.location.href='/transactions/edit/${transaction.id}'` %>">Edit</button>
                         <form class="delete" method="POST" action="<%= `/transactions/delete/${transaction.id}?_method=DELETE` %>">
                             <input class="btn btn-secondary" type='submit' value="Delete">
                         </form>
-                    <% } %>
-                </td>
+                    </td>
+                <% } %>
             </tr>
         <% }) %>
     </table>

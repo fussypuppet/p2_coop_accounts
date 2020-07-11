@@ -1,14 +1,6 @@
-// MAY NEED TO CREATE THIS, RENAME IT TO SOMETHING ELSE, THEN MODEL:CREATE, THEN DELETE THAT AND MOVE THIS BACK I N
-
-
-//user model declaration
-//define use case // somehow makes sure data types are the same across the entire app
 'use strict'
-//import any required libraries
 const bcrypt = require('bcrypt');
-//declare user model format
 module.exports = function(sequelize, DataTypes) {
-    // define user object
     const user = sequelize.define('user', {
         email: {
             type: DataTypes.STRING,
@@ -32,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
             validate: {
                 len: {
                     args: [8, 99],
-                    msg: "Password must be between 8 and 99 characters"  // can also use hooks below or html form to validation
+                    msg: "Password must be between 8 and 99 characters"  // can also use hooks below or html form for validation
                 }
             }
         },
@@ -44,7 +36,6 @@ module.exports = function(sequelize, DataTypes) {
         }
 
     }, {
-    // hook - way of saying I want to grab data as it's coming in and do something to it before it moves on
         hooks: {
             beforeBulkUpdate: function(updatedUser, options){
                 if (updatedUser && updatedUser.attributes.password){
@@ -62,7 +53,6 @@ module.exports = function(sequelize, DataTypes) {
 
         }
     })
-    // user associations
     user.associate = function(models){
         models.user.hasOne(models.shareholder)
     }
@@ -77,8 +67,3 @@ module.exports = function(sequelize, DataTypes) {
     }
     return user;
 }
-
-//take inputed password and compare to hashed password in user table
-//hash new password and add to user table 
-//remove password setup before add
-//return user model

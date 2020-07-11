@@ -129,6 +129,7 @@ router.get('/:id', isLoggedIn, (req,res) => {
                     chartPiece = chartPiece + `{callback:${formatCurrency.toString()},fontSize:8}}]}}}`;
                     chartPiece = encodeURIComponent(chartPiece); // urlencode the string so that things like quotation marks don't confuse API parsing
                     graphImgSrc = graphImgSrc + chartPiece;
+                shareholder.isAdministrator = req.user.isAdministrator;  // lastly, we want to not render transaction edit & delete buttons if user is not an administrator.
                 res.render('./shareholders/showShareholder', {shareholder, graphImgSrc, years: req.query.years});
             })
         })
@@ -141,7 +142,7 @@ router.get('/:id', isLoggedIn, (req,res) => {
             }
         })
     } else {
-        catchError("🪓🪓🪓🪓 req params was style.css again");
+        catchError(req, {message: "🪓🪓🪓🪓 req params was style.css again"});
         res.redirect('back');
     }
 });
