@@ -1,11 +1,6 @@
-//configure doenv
 require('dotenv').config();
-//require express and setup an express app instance
 const Express = require('express');
-//require and set view engine use ejs
 const ejsLayouts = require('express-ejs-layouts');
-//require all middleware for app/authentication
-//helmet, morgan, passport, and custom middleware, express-sessions, sequelize sessions, flash
 const helmet = require('helmet');
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -13,14 +8,10 @@ const passport = require('./config/ppConfig');
 const db = require('./models');
 const methodOverride = require('method-override');
 
-//add a link to our customer middleware for isLoggedIn
+
 const isLoggedIn = require('./middleware/isLoggedIn');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
-
-//set app to use false urlencoding
-// set app to public directory for use
-// set app ejslayouts for render
 
 const app = Express();
 app.use(Express.urlencoded({extended: false}));
@@ -46,7 +37,6 @@ app.use(session({
 
 sessionStore.sync();
 
-//TODO: initialize and link flash message and passport and session
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -63,7 +53,7 @@ app.get('/', (req, res) => {
 
 
 //include outside controllers
-app.use('/auth', require('./controllers/auth')); // use the auth.js file in the auth folder when dealing with auth routes)
+app.use('/auth', require('./controllers/auth'));
 app.use('/shareholders', require('./controllers/shareholders'));
 app.use('/dues', require('./controllers/dues'));
 app.use('/transactions', require('./controllers/transactions'));
