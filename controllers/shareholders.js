@@ -79,6 +79,7 @@ router.get('/:id', isLoggedIn, (req,res) => {
                 order: [["startDate", "ASC"]]
             })
             .then(dbDuesList => {
+                shareholder.currentDues = dbDuesList[dbDuesList.length -1].amount;
                 let filledDuesList = fillDuesGaps(dbDuesList);
                 let croppedFilledDuesList = cropTransactionsByDate(filledDuesList, shareholder.startDate);
                 let chartData = [];

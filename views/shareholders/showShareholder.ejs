@@ -1,6 +1,10 @@
 <div class="container">
     <h2><%= shareholder.name %></h2>
-    <p>Unit <%= shareholder.unit.number %>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbspShareholder since <%= shareholder.startDate.getMonth() + 1 %>/<%= shareholder.startDate.getFullYear() %></p>
+    <p>
+        Unit <%= shareholder.unit.number %>&nbsp&nbsp&nbsp&nbsp|
+        &nbsp&nbsp&nbsp&nbspShareholder since <%= shareholder.startDate.getMonth() + 1 %>/<%= shareholder.startDate.getFullYear() %>&nbsp&nbsp&nbsp&nbsp|
+        &nbsp&nbsp&nbsp&nbspCurrent dues rate: $<%= shareholder.currentDues %>/month
+    </p>
     <% if (years == 2) { %>
         <p>Displaying last 2 years 
             <button class="btn btn-secondary" onclick="<%= `window.location.href='/shareholders/${shareholder.id}'` %>">Show full history</button>

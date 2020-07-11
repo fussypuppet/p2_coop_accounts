@@ -127,6 +127,31 @@ router.post('/login', passport.authenticate('local', {
     failureFlash: 'Invalid username or password'
 }));
 
+router.delete('/', function(req,res,next) {
+    db.shareholder.update({
+        userId: null
+    }, {
+        where: {
+            id: req.user.shareholderId
+        }
+    })
+    .then(updateSuccess => {
+        db.user.destroy({
+            where: {id: req.user.id}
+        })
+        .then(deleteResult => {
+            req.flash('success', "User account deleted");
+            res.redirect('/auth/logout');
+        })
+        .catch(err => {
+            catchError(req, err);
+        })
+    })
+    .catch(err => {
+        catchError(req, err);
+    })
+})
+
 router.put('/', function(req,res,next) {
     passport.authenticate('local', function(err, user, info){
         if (!user){
@@ -145,7 +170,7 @@ router.put('/', function(req,res,next) {
             })
             .then(updateResult => {
                 req.flash('success', "User information updated");
-                return res.redirect('/auth/logout');
+                return res.redirect(`/shareholders/${req.user.shareholderId}`);
             })
             .catch(err => {
                 catchError(req, err);
@@ -154,12 +179,6 @@ router.put('/', function(req,res,next) {
     })(req,res,next);
 })
 
-router.put('/login', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/auth/login',
-    successFlash: 'Welcome to our app!',
-    failureFlash: 'Invalid username or password'
-}));
 
 router.get('/logout', function(req,res){
     req.logout();

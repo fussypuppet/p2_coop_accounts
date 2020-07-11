@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="/css/style.css" type="text/css">
     <title>Coop Accounts</title>
 </head>
@@ -17,11 +18,11 @@
                     <a href="/shareholders">Shareholders Index</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp
                     <a href="/dues/new">Update Dues</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp 
                     <a href="/transactions/new">New Transaction</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp 
-                    <a href="/auth/edit">Change Password</a>
+                    <a href="/auth/edit">Edit User Info</a>
                 <% } else if (currentUser) { %>
-                    <a href="/auth/logout">Logout</a>&nbsp&nbsp&nbsp&nbsp| &nbsp&nbsp&nbsp&nbsp
+                    <a href="/auth/logout">Log out</a>&nbsp&nbsp&nbsp&nbsp| &nbsp&nbsp&nbsp&nbsp
                     <a href="<%= `/shareholders/${currentUser.shareholderId}?years=2` %>">My Account</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp
-                    <a href="/auth/edit">Change Password</a>
+                    <a href="/auth/edit">Edit User Info</a>
                 <% } else { %>
                     <a href="/auth/register">Register</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp 
                     <a href="/auth/login">Log in</a>
