@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER
   }, {});
   shareholder.associate = function(models) {
-    // associations can be defined here
     models.shareholder.hasOne(models.unit),
     models.shareholder.hasOne(models.user),
     models.shareholder.hasMany(models.transaction)

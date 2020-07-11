@@ -6,7 +6,6 @@ module.exports = (sequelize, DataTypes) => {
     shareholderId: DataTypes.INTEGER
   }, {});
   unit.associate = function(models) {
-    // associations can be defined here
     models.unit.hasOne(models.shareholder)
   };
   return unit;

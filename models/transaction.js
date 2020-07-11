@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
     shareholderId: DataTypes.INTEGER
   }, {});
   transaction.associate = function(models) {
-    // associations can be defined here
     models.transaction.belongsTo(models.shareholder)
   };
   return transaction;
