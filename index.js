@@ -52,7 +52,6 @@ app.use(passport.session());
 app.use(flash());
 
 app.use(function(req,res,next){
-    console.log("☑️☑️☑️☑️☑️Alert triggered");
     res.locals.alerts = req.flash();
     res.locals.currentUser = req.user;
     next();

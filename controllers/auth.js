@@ -61,9 +61,8 @@ router.post('/register', function(req,res){
                 )
                 .then(function(updateResponse) {
                     if (created){ // if all went well, authenticate and log in.
-                        console.log("user created!");
                         passport.authenticate('local', {
-                            successRedirect: '/shareholders',
+                            successRedirect: (user.isAdministrator ? '/shareholders' : `/shareholders/${user.shareholderId}`),
                             successFlash: 'Thanks for signing up!'
                         })(req,res);
                     } else {    // but if findorCreate found rather than created, send appropriate error message
@@ -96,10 +95,10 @@ router.get('/login', function(req,res){
 })
 
 router.post('/login', function(req,res){
-    passport.authenticate('local', function(error, user,info) {
+    passport.authenticate('local', function(error, user) {
         if (!user){
             req.flash('error', "invalid username or password");
-            return res.redirect('auth/login');
+            return res.redirect('/auth/login');
         }
         if (error) {
             catchError(error);
@@ -112,11 +111,7 @@ router.post('/login', function(req,res){
             }
             req.flash('success', `Login successful. Welcome ${req.user.name}!`);
             req.session.save(function(){
-                if (req.user.isAdministrator){
-                    return res.redirect('/shareholders');
-                } else {
-                    return res.redirect(`/shareholders/${req.user.shareholderId}?years=2`);
-                }
+                return res.redirect(user.isAdministrator ? '/shareholders' : `/shareholders/${user.shareholderId}`);
             })
         })
     })(req, res);
@@ -140,7 +135,7 @@ router.delete('/', function(req,res) {
             where: {id: req.user.id}
         })
         .then(deleteResult => {
-            req.flash('success', "User account deleted");  // this message doesn't survive the redirect to logout.  It would be neat to find a way to display it.
+            req.flash('success', "User account deleted");
             res.redirect('/auth/logout');
         })
         .catch(err => {
