@@ -11,8 +11,14 @@ function catchError(req, err){
     req.flash('error', err.message);
 }
 
+// new user route
 router.get('/register', function(req,res){
-    db.unit.findAll()
+// users have one shareholder, so we want the registration form to tie the user to a shareholder
+// but exposing a list of shareholder names to the public seems like a breach of privacy
+// so we instead have the new user select their unit number, and can find the correct shareholder from the unit's shareholderId.
+    db.unit.findAll({
+        attributes: ['number', 'shareholderId']
+    })
     .then(units => {
         res.render('auth/register', {units});
     })
@@ -22,49 +28,43 @@ router.get('/register', function(req,res){
 })
 
 router.post('/register', function(req,res){
-    db.unit.findByPk(
-        req.body.unit,
+    db.shareholder.findByPk(   // make sure shareholder doesn't already have a user account
+        req.body.shareholderId,
         {
-            include: [db.shareholder]
+            attributes: ['userId']
         }
-    ) // for privacy, person registering selects their unit number instead of exposing shareholder names to public.  So have to find shareholderId associated with unit here.
-    .then(unit => {
-        console.log(`🔶🔶🔶🔶🔶🔶🔶 ${JSON.stringify(unit)}`);
-        if (unit.shareholder.userId){
+    ) 
+    .then(shareholder => {
+        if (shareholder.userId){
             req.flash('error', "This shareholder has already registered.");
             res.redirect('/auth/register');
         } else {
-            db.user.findOrCreate({
+            db.user.findOrCreate({  // if not, create the user account,
                 where: {
                     email: req.body.email
                 }, defaults: {
                     name: req.body.name,
                     password: req.body.password,
                     isAdministrator: req.body.administrator,
-                    shareholderId: unit.shareholderId
+                    shareholderId: req.body.shareholderId
                 }
-            }).then(function([user,created]){
+            }).then(function([user,created]){   // attach the new userId to the shareholder entry,
                 db.shareholder.update({
                         userId: user.id
                     }, {
                         where: {
-                            id: unit.shareholderId
+                            id: req.body.shareholderId
                         }
                     }
                 )
                 .then(function(updateResponse) {
-                    //if user was created
-                    //authenticate user and start authorization process
-                    //else if user already exists
-                    //send error user that email already exists
-                    //redirect back to register get route
-                    if (created){
+                    if (created){ // if all went well, authenticate and log in.
                         console.log("user created!");
                         passport.authenticate('local', {
                             successRedirect: '/shareholders',
                             successFlash: 'Thanks for signing up!'
                         })(req,res);
-                    } else {
+                    } else {    // but if findorCreate found rather than created, send appropriate error message
                         req.flash('error', 'Error: email already exists');
                         res.redirect('/auth/register');
                     }

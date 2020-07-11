@@ -1,21 +1,18 @@
-// import necessary libraries and modules
+// passport configuration
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const db = require('../models');
 
-// serialize user
 passport.serializeUser(function(user, callback) { 
     callback(null, user.id);
 })
 
-// deserialized version
 passport.deserializeUser(function(id, callback) {
     db.user.findByPk(id).then(function(user){
         callback(null, user);
     }).catch(callback);
 })
 
-// passport local config
 passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
