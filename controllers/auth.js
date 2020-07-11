@@ -27,6 +27,7 @@ router.get('/register', function(req,res){
     })
 })
 
+// create user route
 router.post('/register', function(req,res){
     db.shareholder.findByPk(   // make sure shareholder doesn't already have a user account
         req.body.shareholderId,
@@ -93,9 +94,6 @@ router.get('/login', function(req,res){
     } 
 })
 
-router.get('/edit', (req, res) => {
-    res.render("./auth/editUser", {thisSession: req.session, user: req.user});
-})
 
 router.post('/login', function(req,res,next){           // our first use of keyword "next".  This finds next instance of same route pattern and then executes it
     passport.authenticate('local', function(error, user,info) {
@@ -126,6 +124,13 @@ router.post('/login', passport.authenticate('local', {
     successFlash: 'Welcome to our app!',
     failureFlash: 'Invalid username or password'
 }));
+
+
+// I haven't used user IDs as url parameters for edit, update, & delete CRUD routes for privacy & because all the info we need is in req.user
+router.get('/edit', (req, res) => {
+    res.render("./auth/editUser", {user: req.user});
+})
+
 
 router.delete('/', function(req,res,next) {
     db.shareholder.update({
