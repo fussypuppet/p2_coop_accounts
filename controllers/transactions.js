@@ -12,7 +12,7 @@ function catchError(req, err){
 
 router.get('/new', isLoggedIn, (req,res) => {
     db.shareholder.findAll({    // need shareholder id and name for <select> input field
-        attributes: [id, name]
+        attributes: ['id', 'name']
     })
     .then(shareholderList => {
         res.render('./transactions/newTransaction', {shareholderList});
@@ -27,7 +27,7 @@ router.get("/edit/:id", isLoggedIn, (req,res) => {
     db.transaction.findByPk(req.params.id)
     .then(transaction => {
         db.shareholder.findAll({
-            attributes: [id, name],
+            attributes: ['id', 'name'],
             order: [['name', 'ASC']]
         })
         .then(shareholdersList => {
