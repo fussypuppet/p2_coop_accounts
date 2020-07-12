@@ -51,7 +51,7 @@ app.get('/', (req, res) => {
     res.redirect('/auth/login');
 })
 
-app.get('/help', (req, res) = {
+app.get('/help', (req, res) => {
     res.render('./docs')
 })
 
