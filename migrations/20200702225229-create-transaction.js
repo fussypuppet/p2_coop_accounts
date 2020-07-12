@@ -20,7 +20,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       checkNumber: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BIGINT
       },
       notes: {
         type: Sequelize.TEXT

@@ -18,13 +18,16 @@
                     <a href="/dues/new">Update Dues</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp 
                     <a href="/transactions/new">New Transaction</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp 
                     <a href="/auth/edit">Edit User Info</a>
+                    <a href="/help">Help</a>
                 <% } else if (currentUser) { %>
                     <a href="/auth/logout">Log out</a>&nbsp&nbsp&nbsp&nbsp| &nbsp&nbsp&nbsp&nbsp
                     <a href="<%= `/shareholders/${currentUser.shareholderId}?years=2` %>">My Account</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp
                     <a href="/auth/edit">Edit User Info</a>
+                    <a href="/help">Help</a>
                 <% } else { %>
                     <a href="/auth/register">Register</a>&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp 
                     <a href="/auth/login">Log in</a>
+                    <a href="/help">Help</a>
                 <% } %>
         </nav>
     </header>
