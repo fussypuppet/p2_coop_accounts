@@ -5,15 +5,15 @@
         &nbsp&nbsp&nbsp&nbspShareholder since <%= shareholder.startDate.getMonth() + 1 %>/<%= shareholder.startDate.getFullYear() %>&nbsp&nbsp&nbsp&nbsp|
         &nbsp&nbsp&nbsp&nbspCurrent dues rate: $<%= shareholder.currentDues %>/month&nbsp&nbsp&nbsp&nbsp|
         &nbsp&nbsp&nbsp&nbspCurrent balance: <%= shareholder.transactions[0].runningBalance %>
-    <% if (years == 2) { %>
-        <p>Displaying last 2 years 
+    <div class="toggle">
+        <% if (years == 2) { %>
+            <p>Displaying last 2 years</p>
             <button class="btn btn-secondary" onclick="<%= `window.location.href='/shareholders/${shareholder.id}'` %>">Show full history</button>
-        </p>
-    <% } else { %>
-        <p>Displaying full history 
+        <% } else { %>
             <button class="btn btn-secondary" onclick="<%= `window.location.href='/shareholders/${shareholder.id}?years=2'` %>">Show last 2 years</button>
-        </p>
-    <% } %>
+            <p>Displaying full history </p>
+        <% } %>
+    </div>
     <img src="<%= graphImgSrc %>" alt="graph of running balances">
     <hr>
     <h3 class="inline">Transaction History</h3>

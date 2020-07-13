@@ -60,3 +60,16 @@ nav {
 .small {
     width: 400px;
 }
+
+.toggle {
+    border: 1px solid black;
+    display: inline-block;
+    border-radius: 6px;
+    padding: 0;
+}
+
+.toggle > p {
+    margin: 0;
+    padding: 0 4px;
+    display: inline-block;
+}
