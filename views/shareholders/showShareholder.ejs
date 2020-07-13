@@ -3,8 +3,8 @@
     <p>
         Unit <%= shareholder.unit.number %>&nbsp&nbsp&nbsp&nbsp|
         &nbsp&nbsp&nbsp&nbspShareholder since <%= shareholder.startDate.getMonth() + 1 %>/<%= shareholder.startDate.getFullYear() %>&nbsp&nbsp&nbsp&nbsp|
-        &nbsp&nbsp&nbsp&nbspCurrent dues rate: $<%= shareholder.currentDues %>/month
-    </p>
+        &nbsp&nbsp&nbsp&nbspCurrent dues rate: $<%= shareholder.currentDues %>/month&nbsp&nbsp&nbsp&nbsp|
+        &nbsp&nbsp&nbsp&nbspCurrent balance: <%= shareholder.transactions[0].runningBalance %>
     <% if (years == 2) { %>
         <p>Displaying last 2 years 
             <button class="btn btn-secondary" onclick="<%= `window.location.href='/shareholders/${shareholder.id}'` %>">Show full history</button>
@@ -68,8 +68,8 @@
                 <% } %>
                 <% if (transaction.category.includes("payment") && shareholder.isAdministrator) { %>
                     <td>
-                        <button class="btn btn-secondary" onclick="<%= `window.location.href='/transactions/edit/${transaction.id}'` %>">Edit</button>
-                        <form class="delete" method="POST" action="<%= `/transactions/delete/${transaction.id}?_method=DELETE` %>">
+                        <button class="btn btn-secondary" onclick="<%= `window.location.href='/transactions/${transaction.id}/edit'` %>">Edit</button>
+                        <form class="delete" method="POST" action="<%= `/transactions/${transaction.id}?_method=DELETE` %>">
                             <input class="btn btn-secondary" type='submit' value="Delete">
                         </form>
                     </td>

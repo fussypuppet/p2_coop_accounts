@@ -1,6 +1,6 @@
 <div class="container">
     <h2>Edit Transaction</h2>
-    <form method="POST" action="/transactions/edit/<%= transaction.id %>?_method=PUT">
+    <form method="POST" action="/transactions/<%= transaction.id %>?_method=PUT">
         <div class="form-group">
             <label for="shareholder">Shareholder:</label>
             <select class="form-control" id="shareholder" name="shareholder" required>

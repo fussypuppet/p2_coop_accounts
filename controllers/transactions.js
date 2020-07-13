@@ -24,7 +24,7 @@ router.get('/new', isLoggedIn, (req,res) => {
     })
 })
 
-router.get("/edit/:id", isLoggedIn, (req,res) => {
+router.get("/:id/edit", isLoggedIn, (req,res) => {
     db.transaction.findByPk(req.params.id)
     .then(transaction => {
         db.shareholder.findAll({
@@ -45,7 +45,7 @@ router.get("/edit/:id", isLoggedIn, (req,res) => {
     })
 })
 
-router.put("/edit/:id", isLoggedIn, (req, res) => {
+router.put("/:id", isLoggedIn, (req, res) => {
     // see Create route for reasoning behind reformatting req.body.date
     let dateForDb = `${req.body.date.substring(5, 7)}/${req.body.date.substring(8, 10)}/${req.body.date.substring(0, 4)}`;
     db.transaction.update({
@@ -67,7 +67,7 @@ router.put("/edit/:id", isLoggedIn, (req, res) => {
     }) 
 })
 
-router.delete("/delete/:id", isLoggedIn, (req, res) => {
+router.delete("/:id", isLoggedIn, (req, res) => {
     db.transaction.destroy({
         where: {
             id: req.params.id
